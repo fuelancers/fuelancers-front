@@ -1,0 +1,12 @@
+[
+  { "id": 1, "label": "English", "value": "English" },
+  { "id": 2, "label": "Spanish", "value": "Spanish" },
+  { "id": 3, "label": "French", "value": "French" },
+  { "id": 4, "label": "German", "value": "German" },
+  { "id": 5, "label": "Italian", "value": "Italian" },
+  { "id": 6, "label": "Japanese", "value": "Japanese" },
+  { "id": 7, "label": "Korean", "value": "Korean" },
+  { "id": 8, "label": "Chinese", "value": "Chinese" },
+  { "id": 9, "label": "Russian", "value": "Russian" },
+  { "id": 10, "label": "Portuguese", "value": "Portuguese" }
+]

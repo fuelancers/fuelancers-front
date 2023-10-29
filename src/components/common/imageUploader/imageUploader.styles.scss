@@ -1,0 +1,63 @@
+.upload__image-wrapper {
+    position: relative;
+    max-width: 500px;
+    margin: 0 auto 40px;
+    .title {
+        margin: 0px 0 60px;
+    }
+    .image-uploader-wrapper {
+        width: 90%;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+    .image-uploader {
+        width: 100%;
+        margin: 0 auto 50px;
+        background: white;
+        border-radius: 6px;
+        border: 2px dashed #c1c1c1;
+        padding: 20px 15px;
+        transition: all 0.3s linear;
+        .btn {
+            width: 150px;
+            margin: 0 auto;
+        }
+        .drag-here {
+            margin: 10px auto 0;
+            color: #8d8d8d;
+        }
+    }
+    .content-images-list {
+        .image-item {
+            width: 80px;
+            height: 80px;
+            border-radius: 6px;
+            position: relative;
+            img {
+                border-radius: 6px;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+            .remove-image {
+                position: absolute;
+                top: -10px;
+                right: -10px;
+                background: #f24c3d;
+                border-radius: 50%;
+                padding: 5px 0;
+                width: 20px;
+                height: 20px;
+                img {
+                    width: 10px;
+                    height: 10px;
+                    display: block;
+                    margin: 0 auto;
+                }
+            }
+        }
+        .btn {
+            margin: 40px auto 0;
+        }
+    }
+}
