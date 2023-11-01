@@ -53,7 +53,7 @@ export default function EditProfile({
     const [status, setStatus] = useState<SingleValue<TypeListsSelect>>(defaultValueList);
     const [experience, setExperience] = useState<SingleValue<TypeListsSelect>>(defaultValueList);
     const [workmode, setWorkmode] = useState<SingleValue<TypeListsSelect>>(defaultValueList);
-    console.log({data})
+    
     useEffect(() => {
         if (!showModal) return;
 

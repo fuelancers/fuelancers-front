@@ -9,14 +9,14 @@ export default function useModal() {
 
 
     const handleToggleModal = (key: string, action: ActionModal) => {
-        dispatch(updateModal({ [key]: action === ActionModal.open ? true : false }));
+        dispatch(updateModal({ [key]: action === ActionModal.open }));
         clearQueryParams(action)
     };
 
     const handleToggleModalWithLabel = (key: string, label: string, action: ActionModal, labelButton: string) => {
         dispatch(updateModal({
             [key]: {
-                show: action === ActionModal.open ? true : false,
+                show: action === ActionModal.open,
                 label,
                 labelButton,
             }

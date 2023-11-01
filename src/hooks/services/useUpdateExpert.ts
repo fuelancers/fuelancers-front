@@ -14,7 +14,6 @@ export function useUpdateExpert() {
         const user = await fetchService<IResponse<Expert>>(
             GetExpertService(`${experts.list_experts}/${userStorage._id}`, userStorage.token)
         );
-        // console.log("holiii 123")
         dispatch(updateExpert(user.result?.data));
     }
 

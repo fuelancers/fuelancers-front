@@ -37,7 +37,6 @@ interface IProps {
 
 
 export default function ProfileComponent({ style, children, user, viewport }: IProps) {
-    console.log({user})
     return (
         <main className={`bg-white-bg pb-6 min-h-screen md:pb-10 ${style || ''}`}>
             <ProfileHeader

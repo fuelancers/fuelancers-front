@@ -1,7 +1,7 @@
 /* eslint-disable prefer-const */
 /* eslint-disable react-hooks/exhaustive-deps */
 // hooks
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, FormEvent } from "react";
 import { useFormValues } from "@/hooks/form/useFormValues";
 import { useFetch } from "@/hooks/services/useFetch";
 import { useLoaderData } from "react-router-dom";
@@ -18,15 +18,21 @@ import { experts } from "@/core/routesServices";
 import { IFormFilter, EnumFilter } from "@/interface/forms";
 import { IFilter } from "@/interface/generics";
 import { IResponse } from "@/interface/services/IResponse.interface";
-import { Expert, User } from "@/interface/services/experts/";
+import { Expert, ExpertLocation, User } from "@/interface/services/experts/";
 // services
 import { getListService } from "@/services/generic/getLists.service";
 import { IResponseServicesExpertsPage } from "@/services/pages/getExperts.service";
+import { useSelector } from "react-redux";
+import { AppStore } from "@/storage/store";
+import { useGooglePlacesAutocomplete } from "@/hooks/services/useGooglePlacesAutocomplete";
 
 export default function Experts() {
   const data = useLoaderData();
+  const searchInput = useRef(null);
 
   const [filter, setFilter] = useState<IFilter>(new IFilter());
+  const { location } = useGooglePlacesAutocomplete(undefined, searchInput);
+  const [locationQuery, setLocationQuery] = useState('');
   const {
     values,
     setValues,
@@ -35,7 +41,17 @@ export default function Experts() {
     handleChangeRadio,
   } = useFormValues<IFormFilter>(new IFormFilter("1500"));
 
-  const [listExpert, setListExperts] = useState<User[]>([]);
+  const [listExpert, setListExperts] = useState<Expert[]>([]);
+  const { general: generalStorage } = useSelector(
+    (storage: AppStore) => storage
+  );
+
+  // useEffect(() => {
+  //   if (localStorage.getItem("location")) {
+  //     const locationStorage = JSON.parse(localStorage.getItem("location") || "{}");
+  //     setLocation(locationStorage);
+  //   }
+  // }, [localStorage])
 
   const { callEndpoint, error } = useFetch();
 
@@ -68,10 +84,10 @@ export default function Experts() {
     const getListExperts = async () => {
       let url = experts.list_experts;
       let existFilter = false;
-      console.log({values})
       if (!!values.experience) {
-        url = `${url}${existFilter ? "&" : "?"}experience_id=${values.experience
-          }`;
+        url = `${url}${existFilter ? "&" : "?"}experience_id=${
+          values.experience
+        }`;
         existFilter = true;
       }
 
@@ -93,9 +109,15 @@ export default function Experts() {
         existFilter = true;
       }
 
-      const { response } = await callEndpoint<IResponse<User[]>>(
+      if ((location as ExpertLocation)?.name) {
+        url = `${url}${existFilter ? "&" : "?"}lat=${(location as ExpertLocation)?.lat}&lng=${(location as ExpertLocation)?.lng}`;
+        existFilter = true;
+      }
+
+      const { response } = await callEndpoint<IResponse<Expert[]>>(
         getListService(url)
       );
+      if ((location as ExpertLocation)?.name) setLocationQuery((location as ExpertLocation)?.name);
       return response;
     };
 
@@ -123,11 +145,9 @@ export default function Experts() {
   }, []);
 
   useEffect(() => {
-    checkFiltersActive();
+    // checkFiltersActive();
 
-    if (!!listExpert?.length) {
-      filterList();
-    }
+    filterList();
   }, [values.experience, values.language, values.work_mode, values.skill]);
 
   const handleChangeFilter = () =>
@@ -154,7 +174,10 @@ export default function Experts() {
     }
   };
 
-  console.log(listExpert)
+  const handleSearch = (e: FormEvent) => {
+    e.preventDefault();
+    filterList();
+  };
 
   return (
     <main className="bg-white-bg min-h-screen pb-8 lg:pt-6">
@@ -166,10 +189,9 @@ export default function Experts() {
           alt="bg icon"
           className="object-cover object-center h-full w-full max-h-[400px]"
         />
-
-        <div className="search-bar h-fit w-11/12 absolute z-20 flex flex-wrap gap-2 justify-center">
-          <div className="fields grid grid-cols-1 md:grid-cols-2 gap-2 mb-2 md:mb-0 w-full md:w-fit">
-            <Select
+          <form className="search-bar h-fit w-11/12 absolute z-20 flex flex-wrap gap-2 justify-center" onSubmit={handleSearch}>
+            {/* <div className="fields grid grid-cols-1 md:grid-cols-2 gap-2 mb-2 md:mb-0 w-full md:w-fit"> */}
+            {/* <Select
               data={{
                 name: "status",
                 placeholder: "Select category",
@@ -183,8 +205,8 @@ export default function Experts() {
                     skill: option,
                   })),
               }}
-            />
-            <Select
+            /> */}
+            {/* <Select
               data={{
                 name: "status",
                 placeholder: "Location",
@@ -194,14 +216,26 @@ export default function Experts() {
                 fullWidth: true,
                 onSelect: () => console.log("hola"),
               }}
+            /> */}
+
+            <input
+              className={`rounded-[30px] w-full md:w-64 lg:w-96 py-2 px-5 border-[1px] text-md border-text-50 outline-none focus:border-primary focus:shadow-input transition-all ease-linear duration-300`}
+              ref={searchInput}
+              name="search"
+              type="text"
+              placeholder={"Search by location..."}
             />
-          </div>
-          <div className="search-icon w-full  md:w-[150px] lg:w-[256px]">
-            <button className="w-full bg-secondary text-white block rounded-[30px] px-4 py-2 hover:bg-secondary-hover">
-              Search
-            </button>
-          </div>
-        </div>
+
+            {/* </div> */}
+            <div className="search-icon w-full  md:w-[150px] lg:w-[256px]">
+              <button
+                className="w-full bg-secondary text-white block rounded-[30px] px-4 py-2 hover:bg-secondary-hover"
+                type="submit"
+              >
+                Search
+              </button>
+            </div>
+          </form>
 
         <div className="overlay  w-full absolute z-10 inset-0 h-full bg-text-90 opacity-50"></div>
       </div>
@@ -264,10 +298,11 @@ export default function Experts() {
             handleChangeRadio={handleChangeRadio}
           />
         </div>
-
-        <div className="list-technician flex flex-wrap gap-7 justify-center lg:justify-start lg:items-stretch lg:gap-4 px-4 md:px-8 lg:px-0 w-fit lg:w-full h-fit">
-          {!!listExpert?.length ? (
-            listExpert?.map((expert: User) => (
+        <div>
+        {Boolean(locationQuery.length) && <span className="mb-4">Showing {listExpert.length} results sorted by proximity to <b>{locationQuery}</b>.</span>}
+        <div className="list-technician flex flex-wrap gap-7 mt-4 justify-center lg:justify-start lg:items-stretch lg:gap-4 px-4 md:px-8 lg:px-0 w-fit lg:w-full h-fit">
+          {!generalStorage.loading_page ? (
+            listExpert?.map((expert: Expert) => (
               <CardExpert
                 key={expert._id}
                 data={{
@@ -276,6 +311,7 @@ export default function Experts() {
                   description: expert?.profileInfo?.description || "",
                   picture: expert.picture,
                   price: 50,
+                  location: expert?.location?.name || "",
                   categories: expert.skills,
                   status: expert.status,
                   id: expert._id.toString(),
@@ -291,6 +327,7 @@ export default function Experts() {
               <LoaderCardExperts />
             </>
           )}
+        </div>
         </div>
       </div>
 

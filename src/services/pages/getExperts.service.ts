@@ -7,7 +7,7 @@ import { experts, genericsRoutes } from "@/core/routesServices";
 import { FormatListToSelect } from "@/lib/formatList";
 import { useState } from "react";
 
-export type IResponseServicesExpertsPage = { filters: TypeListDataFilter, listExperts: User[] }
+export type IResponseServicesExpertsPage = { filters: TypeListDataFilter, listExperts: Expert[] }
 
 export const getExpertsServices = async (): Promise<IResponseServicesExpertsPage> => {
 

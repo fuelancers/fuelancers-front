@@ -42,9 +42,10 @@ export default function ProfileExpert() {
   const dispatch = useDispatch();
   const { handleToggleModal, handleToggleModalWithLabel } = useModal();
 
-  const { user, general, statusModals, expert } = useSelector((storage: AppStore) => storage);
+  const { user, general, statusModals, expert } = useSelector(
+    (storage: AppStore) => storage
+  );
   const [isOwner, setIsOwner] = useState<boolean>(false);
-
 
   useEffect(() => {
     const responsaService = data as IResponseServicesExpertData;
@@ -55,8 +56,6 @@ export default function ProfileExpert() {
       setIsOwner(id === user._id);
     }
   }, []);
-
-
 
   if (!expert) {
     return <Loader loading={true} />;
@@ -104,8 +103,21 @@ export default function ProfileExpert() {
               <h5 className="font-bold text-text-100 md:text-lg mb-4">
                 Location
               </h5>
-              <div className="lg:pl-4">
-                <span className="text-text-90"> Madrid - Spain</span>
+              <div className="lg:pl-4 flex">
+                {isOwner && (
+                  <ButtonEdit
+                    onClick={() =>
+                      handleToggleModalWithLabel(
+                        "modal_location",
+                        "Edit location",
+                        ActionModal.open,
+                        "Save"
+                      )
+                    }
+                    label=""
+                  />
+                )}
+                <span className="text-text-90"> {expert?.location?.name || ''}</span>
               </div>
               <hr className="border-text-50 mt-3 mb-6" />
             </div>
@@ -116,15 +128,19 @@ export default function ProfileExpert() {
                 Workmode
               </h5>
               <div className="lg:pl-4">
-                {
-                  !expert.workmode?.workmode ? (
-                    <ButtonEdit onClick={() => handleToggleModal("modal_profile", ActionModal.open)} label="Add work-mode" icon="add" />
-                  ) : (
-                    <span className="text-text-90 mb-2 block">
-                      {expert.workmode?.workmode?.name}
-                    </span>
-                  )
-                }
+                {!expert.workmode?.workmode ? (
+                  <ButtonEdit
+                    onClick={() =>
+                      handleToggleModal("modal_profile", ActionModal.open)
+                    }
+                    label="Add work-mode"
+                    icon="add"
+                  />
+                ) : (
+                  <span className="text-text-90 mb-2 block">
+                    {expert.workmode?.workmode?.name}
+                  </span>
+                )}
               </div>
               <hr className="border-text-50 mt-3 mb-6" />
             </div>
@@ -136,7 +152,18 @@ export default function ProfileExpert() {
               </h5>
               <div className="lg:pl-4">
                 {!expert.languages?.length ? (
-                  <ButtonEdit onClick={() => handleToggleModalWithLabel("modal_language", "Add Language", ActionModal.open, "Save")} label="Add language" icon="add" />
+                  <ButtonEdit
+                    onClick={() =>
+                      handleToggleModalWithLabel(
+                        "modal_language",
+                        "Add Language",
+                        ActionModal.open,
+                        "Save"
+                      )
+                    }
+                    label="Add language"
+                    icon="add"
+                  />
                 ) : (
                   expert.languages.map((item, i: number) => (
                     <span className="text-text-90 font-bold block mb-2" key={i}>
@@ -192,51 +219,48 @@ export default function ProfileExpert() {
               }}
               edit={false}
             >
-              {
-                !!expert.profileInfo?.description ? (
-                  <p className="text-sm text-text-90 text-justify">
-                    {expert.profileInfo?.description}
-                  </p>
-                ) : (
-                  <EmptyBox labelButton="Edit Description" onClick={() => handleToggleModal("modal_profile", ActionModal.open)} />
-                )
-              }
+              {!!expert.profileInfo?.description ? (
+                <p className="text-sm text-text-90 text-justify">
+                  {expert.profileInfo?.description}
+                </p>
+              ) : (
+                <EmptyBox
+                  labelButton="Edit Description"
+                  onClick={() =>
+                    handleToggleModal("modal_profile", ActionModal.open)
+                  }
+                />
+              )}
             </Box>
-            {
-              !isOwner && !expert.degrees.length ? null : (
-                <Degree isOwner={isOwner} data={expert.degrees} />
-              )
-            }
+            {!isOwner && !expert.degrees.length ? null : (
+              <Degree isOwner={isOwner} data={expert.degrees} />
+            )}
 
-            {
-              !isOwner && !expert.services.length ? null : (
-                <Services isOwner={isOwner} data={expert.services} />
-              )
-            }
+            {!isOwner && !expert.services.length ? null : (
+              <Services isOwner={isOwner} data={expert.services} />
+            )}
 
-            {
-              general.device <= 1024 ? (
-                <Languages isOwner={isOwner} />
-              ) : null
-            }
+            {general.device <= 1024 ? <Languages isOwner={isOwner} /> : null}
 
-            {
-              !isOwner && !expert.services.length ? null : (
-                <Portfolio isOwner={isOwner} data={expert.portfolios} />
-              )
-            }
-
+            {!isOwner && !expert.services.length ? null : (
+              <Portfolio isOwner={isOwner} data={expert.portfolios} />
+            )}
 
             {/* <Location isOwner={isOwner} /> */}
           </div>
         </div>
 
-
         {/* NOTE: modals list */}
         <EditProfile
           showModal={statusModals.modal_profile}
           onClose={() => handleToggleModal("modal_profile", ActionModal.close)}
-          data={{ expert: expert.profileInfo, status: expert.status, experience: expert.experience, workmode: expert.workmode, token: user.token }}
+          data={{
+            expert: expert.profileInfo,
+            status: expert.status,
+            experience: expert.experience,
+            workmode: expert.workmode,
+            token: user.token,
+          }}
           idExpert={expert._id}
         />
 
@@ -249,7 +273,14 @@ export default function ProfileExpert() {
           showModal={statusModals.modal_degree.show}
           label={statusModals.modal_degree.label}
           labelButton={statusModals.modal_degree.labelButton}
-          onClose={() => handleToggleModalWithLabel("modal_degree", "", ActionModal.close, "")}
+          onClose={() =>
+            handleToggleModalWithLabel(
+              "modal_degree",
+              "",
+              ActionModal.close,
+              ""
+            )
+          }
           expert={expert}
         />
 
@@ -257,7 +288,14 @@ export default function ProfileExpert() {
           showModal={statusModals.modal_services.show}
           label={statusModals.modal_services.label}
           labelButton={statusModals.modal_services.labelButton}
-          onClose={() => handleToggleModalWithLabel("modal_services", "", ActionModal.close, "")}
+          onClose={() =>
+            handleToggleModalWithLabel(
+              "modal_services",
+              "",
+              ActionModal.close,
+              ""
+            )
+          }
           expert={expert}
         />
 
@@ -265,25 +303,47 @@ export default function ProfileExpert() {
           showModal={statusModals.modal_language.show}
           label={statusModals.modal_language.label}
           labelButton={statusModals.modal_language.labelButton}
-          onClose={() => handleToggleModalWithLabel("modal_language", '', ActionModal.close, '')}
+          onClose={() =>
+            handleToggleModalWithLabel(
+              "modal_language",
+              "",
+              ActionModal.close,
+              ""
+            )
+          }
         />
-
-
-        <UpsertLocation
-          showModal={statusModals.modal_location.show}
-          label={statusModals.modal_location.label}
-          labelButton={statusModals.modal_location.labelButton}
-          onClose={() => handleToggleModalWithLabel('modal_location', '', ActionModal.close, '')}
-        />
+        {statusModals.modal_location.show && (
+          <UpsertLocation
+            showModal={statusModals.modal_location.show}
+            label={statusModals.modal_location.label}
+            labelButton={statusModals.modal_location.labelButton}
+            onClose={() =>
+              handleToggleModalWithLabel(
+                "modal_location",
+                "",
+                ActionModal.close,
+                ""
+              )
+            }
+            data={{
+              location: expert.location,
+            }}
+          />
+        )}
 
         <UpsertResults
           showModal={statusModals.modal_portfolio.show}
           label={statusModals.modal_portfolio.label}
           labelButton={statusModals.modal_portfolio.labelButton}
-          onClose={() => handleToggleModalWithLabel('modal_portfolio', '', ActionModal.close, "")}
+          onClose={() =>
+            handleToggleModalWithLabel(
+              "modal_portfolio",
+              "",
+              ActionModal.close,
+              ""
+            )
+          }
         />
-
-
       </main>
     );
   }

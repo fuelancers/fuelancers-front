@@ -13,11 +13,12 @@ interface IProps {
     categories: { skill: list }[];
     status: { status: list } | undefined;
     id: string;
+    location?: string;
   };
 }
 
 export default function CardExpert({ data }: IProps) {
-  const { name, title, picture, description, price, categories, status, id } =
+  const { name, title, picture, description, price, location, categories, status, id } =
     data;
   const formatter = new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -66,7 +67,7 @@ export default function CardExpert({ data }: IProps) {
                   height={14}
                   alt="Pin"
                 />
-                Located in Madrid
+                Located in {location}
               </span>
             </div>
           </div>

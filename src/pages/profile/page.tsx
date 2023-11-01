@@ -8,7 +8,7 @@ export default function Profile() {
 
     const [viewport, setViewport] = useState<number | null>(null);
     const user = useSelector((storage: AppStore) => storage.user)
-    console.log(user);
+    
     useEffect(() => {
         setViewport(window.innerWidth);
     }, []);

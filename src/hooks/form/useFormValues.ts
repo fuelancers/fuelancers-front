@@ -34,7 +34,6 @@ export function useFormValues<T>(customValues: T): ReturnHook<T> {
     ): void => {
         const { value, name } = e.target as HTMLInputElement;
         if (validate === ValidationForm.number) {
-            console.log(isNaN(parseInt(value)));
             if (isNaN(parseInt(value)) && !!value.length) return;
         }
 

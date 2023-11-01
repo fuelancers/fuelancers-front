@@ -1,8 +1,6 @@
 import axios from "@/config/axios";
 
 export const AuthService = <T>(data: T, route: string) => {
-    console.log("data", data)
-    console.log("route", route)
     return {
         call: axios.post(`${route}`, data)
     };
