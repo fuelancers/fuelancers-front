@@ -298,8 +298,8 @@ export default function Experts() {
             handleChangeRadio={handleChangeRadio}
           />
         </div>
-        <div>
-        {Boolean(locationQuery.length) && <span className="mb-4">Showing {listExpert.length} results sorted by proximity to <b>{locationQuery}</b>.</span>}
+        <div className="w-full">
+        {Boolean(locationQuery.length) && <span className="mb-4 px-4 md:px-0 inline-block">Showing {listExpert.length} results sorted by proximity to <b>{locationQuery}</b>.</span>}
         <div className="list-technician flex flex-wrap gap-7 mt-4 justify-center lg:justify-start lg:items-stretch lg:gap-4 px-4 md:px-8 lg:px-0 w-fit lg:w-full h-fit">
           {!generalStorage.loading_page ? (
             listExpert?.map((expert: Expert) => (
