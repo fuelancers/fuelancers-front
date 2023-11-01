@@ -128,7 +128,7 @@ export default function ProfileExpert() {
                 Workmode
               </h5>
               <div className="lg:pl-4">
-                {!expert.workmode?.workmode ? (
+                {isOwner && !expert.workmode?.workmode ? (
                   <ButtonEdit
                     onClick={() =>
                       handleToggleModal("modal_profile", ActionModal.open)
@@ -151,7 +151,7 @@ export default function ProfileExpert() {
                 Languages
               </h5>
               <div className="lg:pl-4">
-                {!expert.languages?.length ? (
+                {isOwner && !expert.languages?.length ? (
                   <ButtonEdit
                     onClick={() =>
                       handleToggleModalWithLabel(
