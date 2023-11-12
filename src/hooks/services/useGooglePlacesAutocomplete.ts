@@ -47,7 +47,7 @@ const extractAddress = (place: any) => {
   };
 
 export function useGooglePlacesAutocomplete(locationData: ExpertLocationResponse | undefined, inputRef: React.MutableRefObject<HTMLInputElement | null>) {
-    const [location, setLocation] = useState<ExpertLocation | {}>(locationData || {});
+    const [location, setLocation] = useState<ExpertLocationResponse | {}>(locationData || {});
 
     const onChangeAddress = (autocomplete: any) => {
         const place = autocomplete.getPlace();

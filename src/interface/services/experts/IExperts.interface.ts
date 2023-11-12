@@ -27,13 +27,15 @@ export interface PersonalInfo {
 }
 
 
+export interface GeoLocation{
+  type: string;
+  coordinates: number[];
+}
 export interface ExpertLocationResponse {
   name: string;
-    geoLocation: {
-      type: string;
-      coordinates: number[];
-    }
+  geoLocation: GeoLocation;
 }
+
 
 export interface ExpertLocation {
   name: string;

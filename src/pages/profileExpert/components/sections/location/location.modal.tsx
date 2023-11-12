@@ -3,7 +3,7 @@ import Modal from "@/layouts/modal/modal.component";
 import Select from "@/components/form/select/select.component";
 import { TypeListsSelect } from "@/interface/generics";
 import Input from "@/components/form/input/input.component";
-import { ExpertLocation } from "@/interface/services";
+import { ExpertLocation, ExpertLocationResponse } from "@/interface/services";
 import { useEffect, useRef, useState } from "react";
 import { useFetch } from "@/hooks/services/useFetch";
 import { useUpdateExpert } from "@/hooks/services/useUpdateExpert";
@@ -18,7 +18,7 @@ interface IProps {
   label: string;
   labelButton?: string;
   onClose: () => void;
-  data: { location: ExpertLocation };
+  data: { location: ExpertLocationResponse };
 }
 
 export default function UpsertLocation({
