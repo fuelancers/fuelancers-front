@@ -24,9 +24,9 @@ export const getExpertsServices = async (): Promise<IResponseServicesExpertsPage
         fetchService<IResponse<TypeLists[]>>(
             getListService(genericsRoutes.list_skills)
         ),
-        fetchService<IResponse<Expert[]>>(
-            getListService(experts.list_experts)
-        )
+        // fetchService<IResponse<Expert[]>>(
+        //     getListService(experts.list_experts)
+        // )
     ]
     return Promise.all(functions)
         .then(([list_experience, list_language, list_workmode, list_skills, list_experts]) => {
@@ -41,7 +41,7 @@ export const getExpertsServices = async (): Promise<IResponseServicesExpertsPage
 
             return {
                 filters: data,
-                listExperts: !list_experts.error ? list_experts.result.data : []
+                // listExperts: !list_experts.error ? list_experts.result.data : []
             }
         })
         .catch((error) => {

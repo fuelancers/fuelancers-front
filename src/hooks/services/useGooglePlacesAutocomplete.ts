@@ -1,4 +1,4 @@
-import { ExpertLocation } from "@/interface/services";
+import { ExpertLocation, ExpertLocationResponse } from "@/interface/services";
 import { useEffect, useState } from "react";
 
 const extractAddress = (place: any) => {
@@ -46,7 +46,7 @@ const extractAddress = (place: any) => {
     };
   };
 
-export function useGooglePlacesAutocomplete(locationData: ExpertLocation | undefined, inputRef: React.MutableRefObject<HTMLInputElement | null>) {
+export function useGooglePlacesAutocomplete(locationData: ExpertLocationResponse | undefined, inputRef: React.MutableRefObject<HTMLInputElement | null>) {
     const [location, setLocation] = useState<ExpertLocation | {}>(locationData || {});
 
     const onChangeAddress = (autocomplete: any) => {
@@ -71,5 +71,5 @@ export function useGooglePlacesAutocomplete(locationData: ExpertLocation | undef
        if (inputRef.current) initAutocomplete();
       }, [inputRef.current]);
 
-      return { location };
+      return { location, setLocation };
 }

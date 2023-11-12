@@ -9,6 +9,7 @@ interface IProps {
         value: string;
         symbol: string;
         name: string;
+        symbolPosition: string;
     };
     handleChange: (e: React.FormEvent<HTMLInputElement>) => void;
 }
@@ -39,10 +40,10 @@ export default function RangeInput({ data, handleChange }: IProps) {
                 ref={rangeRef}
             />
             <span className="min flex-1 text-sm">
-                {data.symbol} {data.min}
+                {(!data.symbolPosition || data.symbolPosition === 'left') && data.symbol} {data.min} {data.symbolPosition === 'right' && data.symbol}
             </span>
             <span className="max flex-1 text-sm text-right">
-                {data.symbol} {data.value}
+                {(!data.symbolPosition || data.symbolPosition === 'left') && data.symbol} {data.max} {data.symbolPosition === 'right' && data.symbol}
             </span>
         </div>
     );

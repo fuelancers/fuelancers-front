@@ -4,10 +4,13 @@ export enum EnumFilter {
     experience = 'Experience',
     language = 'Language',
     work_mode = 'Work mode',
+    distance = 'Distance',
 }
 
 export class IFormFilter {
     public range_price: string;
+
+    public range_distance: string;
 
     public experience: string;
 
@@ -24,8 +27,10 @@ export class IFormFilter {
     public location: TypeListsSelect | null;
 
 
-    constructor(price: string) {
+    constructor(price: string, distance: string) {
         this.range_price = price;
+
+        this.range_distance = distance;
 
         this.experience = "";
 

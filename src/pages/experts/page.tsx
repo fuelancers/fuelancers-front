@@ -25,33 +25,42 @@ import { IResponseServicesExpertsPage } from "@/services/pages/getExperts.servic
 import { useSelector } from "react-redux";
 import { AppStore } from "@/storage/store";
 import { useGooglePlacesAutocomplete } from "@/hooks/services/useGooglePlacesAutocomplete";
+import { useFindMyLocation } from "@/hooks/services/useFindMyLocation";
+import MapContainer from "./components/map";
 
 export default function Experts() {
   const data = useLoaderData();
   const searchInput = useRef(null);
 
   const [filter, setFilter] = useState<IFilter>(new IFilter());
-  const { location } = useGooglePlacesAutocomplete(undefined, searchInput);
-  const [locationQuery, setLocationQuery] = useState('');
+  const { location: locationSearch, setLocation: setLocationSearch } =
+    useGooglePlacesAutocomplete(undefined, searchInput);
+  const [location, setLocation] = useState<ExpertLocation | {}>();
+  useFindMyLocation();
+  const [locationQuery, setLocationQuery] = useState("");
+  const [isShowingMap, setIsShowingMap] = useState(false);
   const {
     values,
     setValues,
     handleChangeInput,
     handleChangeCheckbox,
     handleChangeRadio,
-  } = useFormValues<IFormFilter>(new IFormFilter("1500"));
+  } = useFormValues<IFormFilter>(new IFormFilter("1500", "500"));
 
   const [listExpert, setListExperts] = useState<Expert[]>([]);
   const { general: generalStorage } = useSelector(
     (storage: AppStore) => storage
   );
 
-  // useEffect(() => {
-  //   if (localStorage.getItem("location")) {
-  //     const locationStorage = JSON.parse(localStorage.getItem("location") || "{}");
-  //     setLocation(locationStorage);
-  //   }
-  // }, [localStorage])
+  useEffect(() => {
+    if (localStorage.getItem("location")) {
+      const locationStorage: ExpertLocation = JSON.parse(
+        localStorage.getItem("location") || "{}"
+      );
+      if (locationStorage?.name !== (location as ExpertLocation)?.name)
+        setLocation(locationStorage);
+    }
+  }, [localStorage]);
 
   const { callEndpoint, error } = useFetch();
 
@@ -78,6 +87,7 @@ export default function Experts() {
     check(EnumFilter.experience, values.experience);
     check(EnumFilter.language, values.language);
     check(EnumFilter.work_mode, values.work_mode);
+    check(EnumFilter.distance, values.range_distance);
   };
 
   const filterList = () => {
@@ -109,15 +119,23 @@ export default function Experts() {
         existFilter = true;
       }
 
+      url = `${url}${existFilter ? "&" : "?"}dist=${Number(
+        values.range_distance || 500
+      )}`;
+      existFilter = true;
+
       if ((location as ExpertLocation)?.name) {
-        url = `${url}${existFilter ? "&" : "?"}lat=${(location as ExpertLocation)?.lat}&lng=${(location as ExpertLocation)?.lng}`;
+        url = `${url}${existFilter ? "&" : "?"}lat=${
+          (location as ExpertLocation)?.lat
+        }&lng=${(location as ExpertLocation)?.lng}`;
         existFilter = true;
       }
 
       const { response } = await callEndpoint<IResponse<Expert[]>>(
         getListService(url)
       );
-      if ((location as ExpertLocation)?.name) setLocationQuery((location as ExpertLocation)?.name);
+      if ((location as ExpertLocation)?.name)
+        setLocationQuery((location as ExpertLocation)?.name);
       return response;
     };
 
@@ -141,14 +159,25 @@ export default function Experts() {
       },
     }));
 
-    setListExperts(response.listExperts);
+    // setListExperts(response.listExperts);
   }, []);
 
   useEffect(() => {
     // checkFiltersActive();
+    if (!location) return;
+    const timer = setTimeout(() => filterList(), 500);
 
-    filterList();
-  }, [values.experience, values.language, values.work_mode, values.skill]);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [
+    values.experience,
+    values.language,
+    values.work_mode,
+    values.skill,
+    values.range_distance,
+    location,
+  ]);
 
   const handleChangeFilter = () =>
     setFilter((prev) => ({ ...prev, status: !filter.status }));
@@ -172,11 +201,17 @@ export default function Experts() {
     if (value === EnumFilter.work_mode) {
       changeValue("work_mode", []);
     }
+    if (value === EnumFilter.distance) {
+      changeValue("range_distance", 500);
+    }
   };
 
   const handleSearch = (e: FormEvent) => {
     e.preventDefault();
-    filterList();
+    if ((locationSearch as ExpertLocation)?.name?.length) {
+      setLocation(locationSearch);
+      localStorage.setItem("location", JSON.stringify(locationSearch));
+    }
   };
 
   return (
@@ -189,9 +224,12 @@ export default function Experts() {
           alt="bg icon"
           className="object-cover object-center h-full w-full max-h-[400px]"
         />
-          <form className="search-bar h-fit w-11/12 absolute z-20 flex flex-wrap gap-2 justify-center" onSubmit={handleSearch}>
-            {/* <div className="fields grid grid-cols-1 md:grid-cols-2 gap-2 mb-2 md:mb-0 w-full md:w-fit"> */}
-            {/* <Select
+        <form
+          className="search-bar h-fit w-11/12 absolute z-20 flex flex-wrap gap-2 justify-center"
+          onSubmit={handleSearch}
+        >
+          {/* <div className="fields grid grid-cols-1 md:grid-cols-2 gap-2 mb-2 md:mb-0 w-full md:w-fit"> */}
+          {/* <Select
               data={{
                 name: "status",
                 placeholder: "Select category",
@@ -206,7 +244,7 @@ export default function Experts() {
                   })),
               }}
             /> */}
-            {/* <Select
+          {/* <Select
               data={{
                 name: "status",
                 placeholder: "Location",
@@ -218,24 +256,26 @@ export default function Experts() {
               }}
             /> */}
 
-            <input
-              className={`rounded-[30px] w-full md:w-64 lg:w-96 py-2 px-5 border-[1px] text-md border-text-50 outline-none focus:border-primary focus:shadow-input transition-all ease-linear duration-300`}
-              ref={searchInput}
-              name="search"
-              type="text"
-              placeholder={"Search by location..."}
-            />
+          <input
+            className={`rounded-[30px] w-full md:w-64 lg:w-96 py-2 px-5 border-[1px] text-md border-text-50 outline-none focus:border-primary focus:shadow-input transition-all ease-linear duration-300`}
+            ref={searchInput}
+            name="search"
+            type="text"
+            placeholder={
+              (location as ExpertLocation)?.name || "Search by location..."
+            }
+          />
 
-            {/* </div> */}
-            <div className="search-icon w-full  md:w-[150px] lg:w-[256px]">
-              <button
-                className="w-full bg-secondary text-white block rounded-[30px] px-4 py-2 hover:bg-secondary-hover"
-                type="submit"
-              >
-                Search
-              </button>
-            </div>
-          </form>
+          {/* </div> */}
+          <div className="search-icon w-full  md:w-[150px] lg:w-[256px]">
+            <button
+              className="w-full bg-secondary text-white block rounded-[30px] px-4 py-2 hover:bg-secondary-hover"
+              type="submit"
+            >
+              Search
+            </button>
+          </div>
+        </form>
 
         <div className="overlay  w-full absolute z-10 inset-0 h-full bg-text-90 opacity-50"></div>
       </div>
@@ -296,38 +336,51 @@ export default function Experts() {
             handleChangeInput={handleChangeInput}
             handleChangeCheckbox={handleChangeCheckbox}
             handleChangeRadio={handleChangeRadio}
+            showMap={() => setIsShowingMap((prev) => !prev)}
           />
         </div>
         <div className="w-full">
-        {Boolean(locationQuery.length) && <span className="mb-4 px-4 md:px-0 inline-block">Showing {listExpert.length} results sorted by proximity to <b>{locationQuery}</b>.</span>}
-        <div className="list-technician flex flex-wrap gap-7 mt-4 justify-center lg:justify-start lg:items-stretch lg:gap-4 px-4 md:px-8 lg:px-0 w-fit lg:w-full h-fit">
-          {!generalStorage.loading_page ? (
-            listExpert?.map((expert: Expert) => (
-              <CardExpert
-                key={expert._id}
-                data={{
-                  name: expert.firstName + " " + expert.lastName,
-                  title: expert?.profileInfo?.title || "",
-                  description: expert?.profileInfo?.description || "",
-                  picture: expert.picture,
-                  price: 50,
-                  location: expert?.location?.name || "",
-                  categories: expert.skills,
-                  status: expert.status,
-                  id: expert._id.toString(),
-                }}
-              />
-            ))
-          ) : (
-            <>
-              <LoaderCardExperts />
-              <LoaderCardExperts />
-              <LoaderCardExperts />
-              <LoaderCardExperts />
-              <LoaderCardExperts />
-            </>
+          {Boolean(locationQuery.length) && !generalStorage.loading_page && (
+            <span className="mb-4 px-4 md:px-0 inline-block">
+              Showing {listExpert.length} results sorted by proximity to{" "}
+              <b>{locationQuery}</b>.
+            </span>
           )}
-        </div>
+          <div className="w-full flex h-full">
+            <div className="w-[70%] list-technician flex flex-wrap gap-7 mt-4 justify-center lg:justify-start lg:items-stretch lg:gap-4 px-4 md:px-8 lg:px-0 w-fit lg:w-full h-fit">
+              {!generalStorage.loading_page ? (
+                listExpert?.map((expert: Expert) => (
+                  <CardExpert
+                    key={expert._id}
+                    data={{
+                      name: expert.firstName + " " + expert.lastName,
+                      title: expert?.profileInfo?.title || "",
+                      description: expert?.profileInfo?.description || "",
+                      picture: expert.picture,
+                      price: 50,
+                      location: expert?.location?.name || "",
+                      categories: expert.skills,
+                      status: expert.status,
+                      id: expert._id.toString(),
+                    }}
+                  />
+                ))
+              ) : (
+                <>
+                  <LoaderCardExperts />
+                  <LoaderCardExperts />
+                  <LoaderCardExperts />
+                  <LoaderCardExperts />
+                  <LoaderCardExperts />
+                </>
+              )}
+            </div>
+            {!generalStorage.loading_page && isShowingMap && (
+              <div className="w-[40%] pb-8">
+                <MapContainer experts={listExpert} location={location} />
+              </div>
+            )}
+          </div>
         </div>
       </div>
 

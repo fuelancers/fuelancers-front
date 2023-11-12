@@ -11,7 +11,7 @@ export interface Expert {
   status: IExpertStatus;
   skills: { skill: list }[];
   languages: DataLanguage[];
-  location: ExpertLocation;
+  location: ExpertLocationResponse;
   experience: IExpertExperience | null;
   workmode: IExpertWorkMode | null;
   degrees: IExpertDegree[];
@@ -24,6 +24,15 @@ export interface PersonalInfo {
   description: string;
   title: string;
   exp_id: number;
+}
+
+
+export interface ExpertLocationResponse {
+  name: string;
+    geoLocation: {
+      type: string;
+      coordinates: number[];
+    }
 }
 
 export interface ExpertLocation {
