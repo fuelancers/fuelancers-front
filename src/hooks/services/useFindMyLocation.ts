@@ -1,5 +1,6 @@
+import { ExpertLocation } from "@/interface/services";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const apiKey = import.meta.env.VITE_APP_GMAP_API_KEY;
 const ipInfoKey = import.meta.env.VITE_APP_IPINFO_KEY;
@@ -31,57 +32,62 @@ const extractLocation = (place: any) => {
   };
 };
 
-const reverseGeocode = ({
-  latitude,
-  longitude,
-}: Partial<GeolocationCoordinates>) => {
-  const url = `${geocodeJson}?key=${apiKey}&latlng=${latitude},${longitude}`;
-  fetch(url)
-    .then((response) => response.json())
-    .then((locationRes) => {
-      const place = locationRes.results[0];
-      const location = extractLocation(place);
-      localStorage.setItem("location", JSON.stringify(location));
-    });
-};
 
-const extractIpInfoLocation = (ipLocation: any) => {
-  const loc = ipLocation.loc.split(",");
-
-  reverseGeocode({ latitude: Number(loc[0]), longitude: Number(loc[1]) });
-};
-
-const getIPBasedLocation = async () => {
-  try {
-    const { data: ipLocation } = await axios.get(
-      `https://ipinfo.io?token=${ipInfoKey}`
-    );
-
-    const location = extractIpInfoLocation(ipLocation);
-    localStorage.setItem("location", JSON.stringify(location));
-  } catch (error) {
-    console.error("Error getting location based on IP:", error);
-  }
-};
-
-const findMyLocation = () => {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        reverseGeocode(position.coords);
-      },
-      (error) => {
-        getIPBasedLocation();
-      }
-    );
-  } else {
-    getIPBasedLocation();
-  }
-};
 
 export function useFindMyLocation() {
+  const [location, setLocation] = useState<ExpertLocation | {}>({});
+
+  const reverseGeocode = ({
+    latitude,
+    longitude,
+  }: Partial<GeolocationCoordinates>) => {
+    const url = `${geocodeJson}?key=${apiKey}&latlng=${latitude},${longitude}`;
+    fetch(url)
+      .then((response) => response.json())
+      .then((locationRes) => {
+        const place = locationRes.results[0];
+        const locationToSave = extractLocation(place);
+        localStorage.setItem("location", JSON.stringify(locationToSave));
+      });
+  };
+  
+  const extractIpInfoLocation = (ipLocation: any) => {
+    const loc = ipLocation.loc.split(",");
+  
+    reverseGeocode({ latitude: Number(loc[0]), longitude: Number(loc[1]) });
+  };
+  
+  const getIPBasedLocation = async () => {
+    try {
+      const { data: ipLocation } = await axios.get(
+        `https://ipinfo.io?token=${ipInfoKey}`
+      );
+  
+      extractIpInfoLocation(ipLocation);
+    } catch (error) {
+      console.error("Error getting location based on IP:", error);
+    }
+  };
+  
+  const findMyLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          reverseGeocode(position.coords);
+        },
+        (error) => {
+          getIPBasedLocation();
+        }
+      );
+    } else {
+      getIPBasedLocation();
+    }
+  };
+
   useEffect(() => {
     if (typeof window !== "undefined")
       if (!localStorage.getItem("location")) findMyLocation();
   }, []);
+
+  return { location };
 }

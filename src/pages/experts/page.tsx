@@ -36,9 +36,10 @@ export default function Experts() {
   const { location: locationSearch, setLocation: setLocationSearch } =
     useGooglePlacesAutocomplete(undefined, searchInput);
   const [location, setLocation] = useState<ExpertLocation | {}>();
-  useFindMyLocation();
+  const { location: myLocation } = useFindMyLocation();
   const [locationQuery, setLocationQuery] = useState("");
   const [isShowingMap, setIsShowingMap] = useState(false);
+  const [refresh, setRefresh] = useState(false);
   const {
     values,
     setValues,
@@ -59,8 +60,10 @@ export default function Experts() {
       );
       if (locationStorage?.name !== (location as ExpertLocation)?.name)
         setLocation(locationStorage);
+    } else if (myLocation) {
+      setLocation(myLocation);
     }
-  }, [localStorage]);
+  }, [myLocation]);
 
   const { callEndpoint, error } = useFetch();
 
