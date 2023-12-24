@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import MenuMobile from './menuMobile.component';
 import MenuDesktop from './menuDesktop.component';
@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { AppStore } from '@/storage/store';
 import { IUser } from '@/interface/services/auth';
 import { resetUser } from '@/storage/slice/user.slice';
+import { useEffect } from 'react';
 
 interface MenuList {
     label: string;
@@ -37,6 +38,7 @@ export default function Header() {
     const dispatch = useDispatch();
     const user: IUser = useSelector((storage: AppStore) => storage.user);
     const navigate = useNavigate();
+    const location = useLocation();
 
     const handleSignOut = () => {
         dispatch(resetUser());
@@ -45,15 +47,15 @@ export default function Header() {
 
     return (
         <>
-            <header className="px-4 md:px-8 py-2 md:py-4 bg-primary">
+            <header className={`px-4 ${location.pathname === '/' ? 'bg-transparent absolute top-0 left-0 z-50 w-full py-4 md:py-4': 'bg-primary py-3 md:py-3'}`}>
                 <div className="content-sections w-full flex justify-between items-center">
                     <div className="logo">
-                        <Link to="/" className='flex gap-2'>
+                        <Link to="/" className='flex gap-2 hover:opacity-70'>
                             <img
-                                src="/assets/icons/fue-icon.svg"
+                                src="/assets/icons/fue-icon-transparent.svg"
                                 width={100}
                                 height={100}
-                                alt="Logo FUElancers"
+                                alt="Logo Fue-lancers"
                             />
                             {/* <h3 className="font-bold text-lg text-white">THRICOS</h3> */}
                         </Link>

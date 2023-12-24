@@ -3,6 +3,7 @@
 const plugin = require("tailwindcss/plugin");
 
 module.exports = {
+  important: true,
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx}",
     "./src/components/**/*.{js,ts,jsx,tsx}",
@@ -11,7 +12,7 @@ module.exports = {
   theme: {
     extend: {
       boxShadow: {
-        input: "0px 0px 4px 2px #009EFF33",
+        input: "0px 0px 4px 2px #18C29C",
         box: "0px 2px 6px 2px #C1C1C133",
         square: "0px 2px 4px 0 #23242633",
         into: "0px 2px 4px 0 #f2f2f280",
@@ -21,7 +22,7 @@ module.exports = {
       },
     },
     colors: {
-      primary: "#009EFF",
+      primary: "#18C29C",
       secondary: "#18C29C",
       extra: "#FF549A",
       white: "#ffffff",
@@ -84,15 +85,15 @@ module.exports = {
           },
         },
         ".btn-primary": {
-          backgroundColor: "#009EFF",
+          backgroundColor: "#18C29C",
           "&:hover": {
-            backgroundColor: "#036FB2",
+            backgroundColor: "#129578",
           },
         },
         ".btn-secondary": {
           backgroundColor: "#18C29C",
           "&:hover": {
-            backgroundColor: "#0B877D",
+            backgroundColor: "#129578",
           },
         },
 

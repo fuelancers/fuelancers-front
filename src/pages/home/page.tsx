@@ -6,13 +6,14 @@ import ContentSections from "@/layouts/contentSections/contentSections.component
 // styles
 import "@/styles/page.scss";
 import { routesWeb } from "@/core/routesWeb";
+import WhyChooseUse from "@/components/common/home/whyChooseUs";
 
 export default function Home() {
   return (
     <main className="">
-      <section className="h-[80vh] relative w-full">
+      <section className="h-[100vh] md:h-[80vh] relative w-full">
         <div className="content-sections h-full w-full">
-          <div className="absolute inset-0 w-full h-[80vh] cover-bg ">
+          <div className="absolute inset-0 w-full h-[100vh] md:h-[80vh] cover-bg ">
             <img
               src="/assets/images/home-bg.jpg"
               width={1000}
@@ -22,27 +23,28 @@ export default function Home() {
             />
             <div className="overlay  w-full absolute z-10 inset-0 h-full bg-text-90 opacity-50"></div>
           </div>
-          <div className="relative z-20  px-4 md:px-8 mx-auto flex flex-col h-full justify-center ">
-            <h2 className="text-2xl md:text-3xl font-bold text-white text-center pb-24">
-              Find your perfect expert in FUE.
-            </h2>
+          <div className="relative z-20 px-4 md:px-8 mx-auto flex flex-col h-full justify-center ">
+            <h1 className="text-[2.7rem] leading-[3.5rem] md:text-[3rem] md:leading-[4.1rem] font-black text-white text-center pb-10">
+              <span className="text-[2.7rem] leading-[3.5rem] text-[#20E0B5] md:text-[3rem] md:leading-[4.1rem] font-black text-center ">
+                Hair surgery
+              </span>{" "}
+              talent at <br />
+              one click
+            </h1>
 
-            <p className="text-white text-center mb-16 w-10/12 mx-auto">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Et
-              aspernatur sint veritatis repellat corrupti maxime natus maiores
-              tempore magnam
+            <p className="text-white text-center text-md mb-12 mx-auto px-8 md:px-4">
+              The best experts in your area at your service.
             </p>
-            <Link to={routesWeb.find_experts}>
-              <Button
-                data={{
-                  label: "Find experts",
-                }}
-              />
+            <Link to={routesWeb.find_experts} className="mx-auto text-md">
+              <button className="text-sm md:text-[15px] text-white bg-[#18C29C] px-9 py-3 hover:bg-[#129578] rounded-md mx-auto font-semibold">
+                Find a Technician
+              </button>
             </Link>
           </div>
         </div>
       </section>
-      <ContentSections
+
+      {/* <ContentSections
         label="We connect expert in FUE and clinics"
         styles="bg-white"
       >
@@ -69,10 +71,10 @@ export default function Home() {
             />
           </div>
         </div>
-      </ContentSections>
+      </ContentSections> */}
 
       {/* STEPS */}
-      <ContentSections label="How do we do it?" styles="bg-text-30" rounded>
+      {/* <ContentSections label="How do we do it?" styles="bg-text-30" rounded>
         <div className="step-one">
           <h5 className="text-text-90 md:text-xl font-bold text-center mb-6">
             Step one
@@ -118,9 +120,9 @@ export default function Home() {
           alt="blob"
           className="absolute -z-0 -bottom-20 -left-10 select-none"
         />
-      </ContentSections>
+      </ContentSections> */}
 
-      <ContentSections
+      {/* <ContentSections
         label="Services to help you get healthier."
         styles="bg-white"
       >
@@ -130,10 +132,12 @@ export default function Home() {
             customStyles: "btn-primary mt-20",
           }}
         />
-      </ContentSections>
+      </ContentSections> */}
+
+      <WhyChooseUse />
 
       {/* join our */}
-      <ContentSections label="Are you a expert?." styles="bg-text-30" rounded>
+      {/* <ContentSections label="Are you a expert?." styles="bg-text-30" rounded>
         <ul className="list-none flex gap-6 flex-col ">
           <li className="flex gap-2 items-center text-sm text-text-90 md:justify-center">
             <img
@@ -182,7 +186,7 @@ export default function Home() {
             customStyles: "btn-extra mt-20",
           }}
         />
-      </ContentSections>
+      </ContentSections> */}
     </main>
   );
 }

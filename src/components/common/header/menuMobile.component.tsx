@@ -51,7 +51,7 @@ function MenuMobile({ links, isLogged }: IProps) {
                         {!isLogged ? (
                             <Link
                                 to="/signin"
-                                className="text-primary text-sm"
+                                className="text-sm"
                                 onClick={handleChangeNav}
                             >
                                 <span className=" inline-block mr-2 align-middle">

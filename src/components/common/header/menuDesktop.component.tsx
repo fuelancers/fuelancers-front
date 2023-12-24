@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { MenuList } from '@/interface/generics/';
 
 interface IProps {
@@ -8,14 +8,15 @@ interface IProps {
 }
 
 function MenuDesktop({ links, isLogged, handleSignOut }: IProps) {
+    const location = useLocation();
 
     return (
-        <div>
-            <ul className="hidden lg:flex gap-6 ">
+        <>
+            <ul className="hidden lg:flex gap-6 items-center">
                 {links.map((item) => {
                     if (!isLogged && item.private) return null;
                     return (
-                        <li key={item.id} className="text-white" >
+                        <li key={item.id} className="text-white hover:opacity-70" >
                             <span className="inline-block mr-2 align-middle">
                                 <img
                                     src={`/assets/icons/w-${item.icon}-icon.svg`}
@@ -30,17 +31,17 @@ function MenuDesktop({ links, isLogged, handleSignOut }: IProps) {
                 })}
 
                 {!isLogged ? (
-                    <div>
+                    <>
                         <Link
                             to="/signup"
-                            className="text-white text-sm font-bold py-2 px-6 rounded-xl bg-secondary hover:bg-secondary-hover duration-300"
+                            className={`text-[.875rem] rounded-[2rem] font-bold py-2 px-7 ${location.pathname !== '/' ? 'text-[#18C29C] bg-white hover:opacity-70' : 'text-white bg-secondary hover:bg-secondary-hover'} duration-300`}
                         >
                             Create my account
                         </Link>
-                        <Link to="/signin" className="text-white text-[14px]">
+                        <Link to="/signin" className="text-white text-[14px] hover:opacity-70">
                             <span className=" inline-block mr-2 align-middle">
                                 <img
-                                    src="/assets/icons/signin-icon.svg"
+                                    src="/assets/icons/signin-icon-white.svg"
                                     height={20}
                                     width={20}
                                     alt="Sign in icon"
@@ -48,12 +49,12 @@ function MenuDesktop({ links, isLogged, handleSignOut }: IProps) {
                             </span>
                             Sign in
                         </Link>
-                    </div>
+                    </>
                 ) : (
-                    <button className="text-alert-danger text-sm " onClick={handleSignOut}>
+                    <button className="text-alert-danger text-sm hover:opacity-70" onClick={handleSignOut}>
                         <span className=" inline-block mr-2 align-middle">
                             <img
-                                src="/assets/icons/signout-icon.svg"
+                                src="/assets/icons/signout-icon-white.svg"
                                 height={20}
                                 width={20}
                                 alt="Sign up icon"
@@ -62,7 +63,7 @@ function MenuDesktop({ links, isLogged, handleSignOut }: IProps) {
                     </button>
                 )}
             </ul>
-        </div>
+        </>
     );
 }
 
