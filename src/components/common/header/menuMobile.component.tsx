@@ -18,10 +18,10 @@ function MenuMobile({ links, isLogged }: IProps) {
     return (
         <>
             <div className="nav lg:cursor-pointer lg:hidden" onClick={handleChangeNav}>
-                <img src="/assets/icons/menu-icon.svg" height={18} width={18} alt="Menu" />
+                <img src="/assets/icons/menu-icon.svg" height={18} width={18} alt="Menú" />
             </div>
             {nav ? (
-                <Sidebar onClose={handleCloseNav} label="Menu">
+                <Sidebar onClose={handleCloseNav} label="Menú">
                     <ul className="list-none p-0 flex gap-6 flex-col h-[75%]">
                         {links.map((item) => {
                             if (!isLogged && item.private) return null;
@@ -38,7 +38,7 @@ function MenuMobile({ links, isLogged }: IProps) {
                                                 src={`/assets/icons/${item.icon}-icon.svg`}
                                                 height={24}
                                                 width={24}
-                                                alt="Sign in icon"
+                                                alt="Ícono de inicio de sesión"
                                             />
                                         </span>
                                         {item.label}
@@ -59,10 +59,10 @@ function MenuMobile({ links, isLogged }: IProps) {
                                         src="/assets/icons/signin-icon.svg"
                                         height={20}
                                         width={20}
-                                        alt="Sign in icon"
+                                        alt="Ícono de inicio de sesión"
                                     />
                                 </span>
-                                Sign in
+                                Iniciar sesión
                             </Link>
                         ) : (
                             <button className="text-alert-danger text-sm ">
@@ -71,10 +71,10 @@ function MenuMobile({ links, isLogged }: IProps) {
                                         src="/assets/icons/signout-icon.svg"
                                         height={20}
                                         width={20}
-                                        alt="Sign in icon"
+                                        alt="Ícono de inicio de sesión"
                                     />
                                 </span>
-                                Sign out
+                                Cerrar sesión
                             </button>
                         )}
                     </div>

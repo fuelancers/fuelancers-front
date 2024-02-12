@@ -32,7 +32,7 @@ export default function Modal({
                         src="/assets/icons/close-icon.svg"
                         width={10}
                         height={10}
-                        alt="Close icon"
+                        alt="Ícono de cierre"
                     />
                 </button>
 
@@ -53,7 +53,7 @@ export default function Modal({
                         />
                         <Button
                             data={{
-                                label: "Discard",
+                                label: "Descartar",
                                 customStyles: "btn-discard mx-auto mt-4 mb-0 text-sm",
                                 onClick: onClose,
                             }}

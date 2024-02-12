@@ -21,23 +21,23 @@ export default function Services({ isOwner, data }: IProps) {
         setSearchParams({ [QuerysURL.id_service]: id.toString() });
         handleToggleModalWithLabel(
             "modal_services",
-            "Edit Services",
+            "Editar Servicios",
             ActionModal.open,
-            "Save"
+            "Guardar"
         )
     }
 
     return (
         <Box
             data={{
-                label: "Services",
-                id: "services",
+                label: "Servicios",
+                id: "servicios",
                 onClickEdit: () =>
                     handleToggleModalWithLabel(
                         "modal_services",
-                        "Add Services",
+                        "Agregar Servicios",
                         ActionModal.open,
-                        "Save"
+                        "Guardar"
                     ),
             }}
             isOwner={isOwner}
@@ -66,19 +66,19 @@ export default function Services({ isOwner, data }: IProps) {
                             {item.description}
                         </p>
                         <button className="absolute right-0 bottom-0 rounded-tl-md rounded-br-md bg-extra px-4 py-2 text-center text-sm font-bold text-white uppercase ">
-                            Hire now
+                            Contratar ahora
                         </button>
                     </div>
                 ))
             ) : (
                 <EmptyBox
-                    labelButton="Add Service"
+                    labelButton="Agregar Servicio"
                     onClick={() =>
                         handleToggleModalWithLabel(
                             "modal_services",
-                            "Add Services",
+                            "Agregar Servicios",
                             ActionModal.open,
-                            "Save"
+                            "Guardar"
                         )
                     }
                 />

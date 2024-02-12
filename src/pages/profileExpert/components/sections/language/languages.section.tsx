@@ -13,8 +13,8 @@ export default function Languages({ isOwner }: IProps) {
     return (
         <Box
             data={{
-                label: 'Languages',
-                onClickEdit: () => handleToggleModalWithLabel('modal_language', 'Add language', ActionModal.open, 'Save'),
+                label: 'Idiomas',
+                onClickEdit: () => handleToggleModalWithLabel('modal_language', 'Agregar idioma', ActionModal.open, 'Guardar'),
                 id: "languages"
             }}
             isOwner={isOwner}
@@ -23,19 +23,19 @@ export default function Languages({ isOwner }: IProps) {
             <ul className="list-none p-0 flex flex-wrap gap-4 w-11/12 mx-auto">
                 <li className="w-2/5">
                     <span className="block text-sm text-text-90 font-bold text-center">
-                        English
+                        Inglés
                     </span>
-                    <span className="text-sm text-text-70 block text-center">Native</span>
+                    <span className="text-sm text-text-70 block text-center">Nativo</span>
                 </li>
                 <li className="w-2/5">
                     <span className="block text-sm text-text-90 font-bold text-center">
-                        Spanish
+                        Español
                     </span>
-                    <span className="text-sm text-text-70 block text-center">Conversational</span>
+                    <span className="text-sm text-text-70 block text-center">Conversacional</span>
                 </li>
                 <li className="w-2/5">
-                    <span className="block text-sm text-text-90 font-bold text-center">French</span>
-                    <span className="text-sm text-text-70 block text-center">Conversational</span>
+                    <span className="block text-sm text-text-90 font-bold text-center">Francés</span>
+                    <span className="text-sm text-text-70 block text-center">Conversacional</span>
                 </li>
             </ul>
         </Box>

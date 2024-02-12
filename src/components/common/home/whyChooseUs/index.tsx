@@ -3,18 +3,18 @@ import React from 'react'
 const items = [
     {
         icon: 'proximity.svg',
-        title: 'Proximity',
-        text: 'Find technicians near your clinic.',
+        title: 'Proximidad',
+        text: 'Encuentra técnicos cerca de tu clínica.',
     },
     {
         icon: 'availability.svg',
-        title: 'Availability',
-        text: 'Our technicians adapt to your peaks of demand.',
+        title: 'Disponibilidad',
+        text: 'Nuestros técnicos se adaptan a sus necesidades.',
     },
     {
         icon: 'transparency.svg',
-        title: 'Transparency',
-        text: 'Search based on technique mastery, qualifications, and experience.',
+        title: 'Transparencia',
+        text: 'Busca en base a la maestría técnica, calificaciones y experiencia.',
     }
 ]
 
@@ -26,7 +26,7 @@ const WhyChooseUse = () => {
         <div className="content-sections">
           <div className="title mb-16 md:mb-20">
             <h2 className="text-center text-3xl md:text-4xl font-black text-[#56575A]">
-              Why Choose Us?
+              ¿Por qué elegirnos?
             </h2>
           </div>
           <div className="body flex-col md:flex md:flex-row">

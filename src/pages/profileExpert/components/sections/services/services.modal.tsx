@@ -27,7 +27,7 @@ export default function UpsertService({
   showModal,
   onClose,
   label,
-  labelButton = "Add",
+  labelButton = "Agregar",
   expert
 }: IProps) {
   const { values, handleChangeInput, handleChangeTextArea, handleChangeInputNumber, setValues } =
@@ -45,7 +45,7 @@ export default function UpsertService({
   useEffect(() => {
     if (!idService) return;
 
-    // TODO: this is a edit modal;
+    // TODO: este es un modal de edición;
     const getService = expert.services.filter((service) => service._id === idService);
 
     if (!getService.length) return;
@@ -58,7 +58,7 @@ export default function UpsertService({
   }, [idService])
 
   const handleSave = async () => {
-    // TODO: save the degree
+    // TODO: guardar el servicio
     const parseData = {
       ...values,
       price: parseInt(values.price),
@@ -100,29 +100,29 @@ export default function UpsertService({
     >
       <Input
         data={{
-          label: "Title",
+          label: "Título",
           name: "title",
           value: values.title,
-          placeholder: "Title",
+          placeholder: "Título",
           onChange: handleChangeInput,
         }}
       />
       <CustomInputNumber
         data={{
-          label: "Price",
+          label: "Precio",
           name: "price",
           value: values.price,
-          placeholder: "Price",
+          placeholder: "Precio",
           prefix: "€",
           onChange: handleChangeInputNumber,
         }}
       />
       <TextArea
         data={{
-          label: "Description",
+          label: "Descripción",
           name: "description",
           value: values.description,
-          placeholder: "Description",
+          placeholder: "Descripción",
           onChange: handleChangeTextArea,
         }}
       />
@@ -131,7 +131,7 @@ export default function UpsertService({
         !!idService ? (
           <div>
             <button className="btn text-alert-danger text-sm mx-0 my-5 w-fit cursor-pointer" onClick={handleDeleteDegree}>
-              Delete service
+              Eliminar servicio
             </button>
           </div>
         ) : null

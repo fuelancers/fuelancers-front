@@ -5,6 +5,7 @@ export enum EnumFilter {
     language = 'Language',
     work_mode = 'Work mode',
     distance = 'Distance',
+    skill = 'Skill',
 }
 
 export class IFormFilter {
@@ -18,7 +19,7 @@ export class IFormFilter {
 
     public work_mode: string[];
 
-    public skill: TypeListsSelect | null;
+    public skill: string[];
 
     public filters_active: EnumFilter[];
 
@@ -36,7 +37,7 @@ export class IFormFilter {
 
         this.language = [];
 
-        this.skill = null
+        this.skill = [];	
 
         this.work_mode = [];
 

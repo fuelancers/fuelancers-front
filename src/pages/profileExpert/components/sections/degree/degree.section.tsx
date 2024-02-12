@@ -28,15 +28,15 @@ export default function Degree({ isOwner, data }: IProps) {
 
     const handleEdit = (id: string) => {
         setSearchParams({ [QuerysURL.id_degree]: id.toString() });
-        handleToggleModalWithLabel("modal_degree", "Edit degree", ActionModal.open, "Save")
+        handleToggleModalWithLabel("modal_degree", "Editar grado", ActionModal.open, "Guardar")
     }
 
     return (
         <Box
             data={{
-                label: "Degree",
+                label: "Grado",
                 id: "degrees",
-                onClickEdit: () => handleToggleModalWithLabel("modal_degree", "Add degree", ActionModal.open, "Save")
+                onClickEdit: () => handleToggleModalWithLabel("modal_degree", "Añadir grado", ActionModal.open, "Guardar")
             }}
             isOwner={isOwner}
             icon="add"
@@ -62,7 +62,7 @@ export default function Degree({ isOwner, data }: IProps) {
                             <span className="text-sm text-extra">{item.academicDegree}</span>
                         </div>
                     )) : (
-                        <EmptyBox labelButton="Add degree" onClick={() => handleToggleModalWithLabel("modal_degree", "Add degree", ActionModal.open, "Save")} />
+                        <EmptyBox labelButton="Añadir grado" onClick={() => handleToggleModalWithLabel("modal_degree", "Añadir grado", ActionModal.open, "Guardar")} />
                     )
                 }
             </div>

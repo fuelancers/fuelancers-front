@@ -25,7 +25,7 @@ export default function UpsertLocation({
   showModal,
   onClose,
   label,
-  labelButton = "Add",
+  labelButton = "Añadir",
   data,
 }: IProps) {
   const searchInput = useRef(null);
@@ -58,13 +58,13 @@ export default function UpsertLocation({
           htmlFor="location"
           className={`text-sm w-11/12 relative flex gap-3 items-center font-bold`}
         >
-          Location
+          Ubicación
         </label>
         <input
           className={`py-2 px-4 border-[1px] text-sm rounded-md border-text-50 block w-full outline-none focus:border-primary focus:shadow-input transition-all ease-linear duration-300 mt-2`}
           ref={searchInput}
           type="text"
-          placeholder={(location as ExpertLocation)?.name || "Search location...."}
+          placeholder={(location as ExpertLocation)?.name || "Buscar ubicación...."}
         />
       </div>
     </Modal>

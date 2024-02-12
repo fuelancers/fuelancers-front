@@ -1,0 +1,16 @@
+.custom-select {
+    // A reset of styles, including removing the default dropdown arrow
+    appearance: none;
+
+    display: grid;
+    &::-ms-expand {
+        display: none;
+    }
+    &::after {
+        content: '';
+        width: 0.8em;
+        height: 0.5em;
+        background-color: #5b5b5b;
+        clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+    }
+}

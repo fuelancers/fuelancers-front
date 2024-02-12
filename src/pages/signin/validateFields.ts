@@ -9,7 +9,7 @@ export const validateFields = <T>(
     if (!values.email.length) {
         setErrors((prev) => ({
             ...prev,
-            email: 'This field is required',
+            email: 'Este campo es obligatorio',
         }));
         error = true;
     } else if (
@@ -18,7 +18,7 @@ export const validateFields = <T>(
     ) {
         setErrors((prev) => ({
             ...prev,
-            email: 'Enter a valid email',
+            email: 'Ingresa un correo electrónico válido',
         }));
         error = true;
     } else {
@@ -31,13 +31,13 @@ export const validateFields = <T>(
     if (!values.password.length) {
         setErrors((prev) => ({
             ...prev,
-            password: 'This field is required.',
+            password: 'Este campo es obligatorio',
         }));
         error = true;
     } else if (values.password.length > 0 && values.password.length < 5) {
         setErrors((prev) => ({
             ...prev,
-            password: 'Gotta be at least 8 characters',
+            password: 'Debe tener al menos 8 caracteres',
         }));
         error = true;
     } else {

@@ -22,7 +22,7 @@ function MenuDesktop({ links, isLogged, handleSignOut }: IProps) {
                                     src={`/assets/icons/w-${item.icon}-icon.svg`}
                                     height={20}
                                     width={20}
-                                    alt="Sign in icon"
+                                    alt="Ícono de inicio de sesión"
                                 />
                             </span>
                             <Link to={item.href}  className="text-[14px]">{item.label}</Link>
@@ -36,7 +36,7 @@ function MenuDesktop({ links, isLogged, handleSignOut }: IProps) {
                             to="/signup"
                             className={`text-[.875rem] rounded-[2rem] font-bold py-2 px-7 ${location.pathname !== '/' ? 'text-[#18C29C] bg-white hover:opacity-70' : 'text-white bg-secondary hover:bg-secondary-hover'} duration-300`}
                         >
-                            Create my account
+                            Crear mi cuenta
                         </Link>
                         <Link to="/signin" className="text-white text-[14px] hover:opacity-70">
                             <span className=" inline-block mr-2 align-middle">
@@ -44,10 +44,10 @@ function MenuDesktop({ links, isLogged, handleSignOut }: IProps) {
                                     src="/assets/icons/signin-icon-white.svg"
                                     height={20}
                                     width={20}
-                                    alt="Sign in icon"
+                                    alt="Ícono de inicio de sesión"
                                 />
                             </span>
-                            Sign in
+                            Iniciar sesión
                         </Link>
                     </>
                 ) : (
@@ -57,7 +57,7 @@ function MenuDesktop({ links, isLogged, handleSignOut }: IProps) {
                                 src="/assets/icons/signout-icon-white.svg"
                                 height={20}
                                 width={20}
-                                alt="Sign up icon"
+                                alt="Ícono de cerrar sesión"
                             />
                         </span>
                     </button>

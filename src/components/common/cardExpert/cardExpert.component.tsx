@@ -10,7 +10,7 @@ interface IProps {
     picture?: string;
     description: string;
     price: number;
-    categories: { skill: list }[];
+    skills: list[];
     status: { status: list } | undefined;
     id: string;
     location?: string;
@@ -18,7 +18,7 @@ interface IProps {
 }
 
 export default function CardExpert({ data }: IProps) {
-  const { name, title, picture, description, price, location, categories, status, id } =
+  const { name, title, picture, description, price, location, skills, status, id } =
     data;
   const formatter = new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -67,7 +67,7 @@ export default function CardExpert({ data }: IProps) {
                   height={14}
                   alt="Pin"
                 />
-                Located in {location}
+                Ubicado en {location}
               </span>
             </div>
           </div>
@@ -75,7 +75,7 @@ export default function CardExpert({ data }: IProps) {
         <div className="info  p-4 pb-6 relative">
           <div className="price-day rounded-xl bg-white shadow-strong w-fit absolute right-4 -top-4">
             <span className="block text-center text-text-100 text-xs px-5 py-1">
-              225€/day
+              225€/día
             </span>
           </div>
           <div className="data relative">
@@ -109,12 +109,12 @@ export default function CardExpert({ data }: IProps) {
           </div>
 
           <div className="categories mt-6 flex gap-2">
-            {categories.map((category) => (
+            {skills?.map((skill) => (
               <span
-                key={category.skill.name}
+                key={skill.name}
                 className="rounded-sm bg-text-40 text-text-80 text-xs block px-4 py-1 w-fit "
               >
-                {category.skill.name}
+                {skill.name}
               </span>
             ))}
           </div>

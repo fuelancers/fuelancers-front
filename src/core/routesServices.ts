@@ -30,4 +30,5 @@ export const experts = {
     experts_workmode: "/profile/work-mode",
     experts_portfolio: "/profile/portfolio",
     experts_location: "/profile/location",
+    experts_skills: "/profile/skills",
 };

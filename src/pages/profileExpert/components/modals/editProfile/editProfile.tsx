@@ -8,7 +8,7 @@ import Modal from "@/layouts/modal/modal.component";
 import Input from "@/components/form/input/input.component";
 import TextArea from "@/components/form/textArea/textArea";
 import Select from "@/components/form/select/select.component";
-import { SingleValue } from "react-select";
+import { MultiValue, SingleValue } from "react-select";
 // interface
 import { TypeLists, TypeListsSelect } from "@/interface/generics/";
 import { IPersonalInfoExpert } from "@/interface/forms/";
@@ -21,11 +21,12 @@ import { ExpertsServiceUpdate } from "@/services/experts/experts.service";
 // utils
 import { FormatListToSelect, FormatSingleListToSelect } from "@/lib/formatList";
 import { useUpdateExpert } from "@/hooks/services/useUpdateExpert";
+import CustomMultiSelect from "@/components/form/multiSelect/select.component";
 
 interface IProps {
     showModal: boolean;
     onClose: () => void;
-    data: { expert: PersonalInfo | null, status: IExpertStatus, experience: IExpertExperience | null, workmode: IExpertWorkMode | null, token: string | null };
+    data: { expert: PersonalInfo | null, status: IExpertStatus, experience: IExpertExperience | null, workmode: IExpertWorkMode | null, token: string | null, skills: TypeLists[] };
     idExpert: string;
 }
 
@@ -49,10 +50,12 @@ export default function EditProfile({
     const [listStatus, setListStatus] = useState<TypeListsSelect[]>([]);
     const [listExperience, setListExperience] = useState<TypeListsSelect[]>([]);
     const [listWorkMode, setListWorkMode] = useState<TypeListsSelect[]>([]);
+    const [listSkills, setListSkills] = useState<TypeListsSelect[]>([]);
 
     const [status, setStatus] = useState<SingleValue<TypeListsSelect>>(defaultValueList);
     const [experience, setExperience] = useState<SingleValue<TypeListsSelect>>(defaultValueList);
     const [workmode, setWorkmode] = useState<SingleValue<TypeListsSelect>>(defaultValueList);
+    const [skills, setSkills] = useState<MultiValue<TypeListsSelect>>([]);
     
     useEffect(() => {
         if (!showModal) return;
@@ -64,24 +67,30 @@ export default function EditProfile({
             });
         }
 
-        // NOTE: STATUS
+        // NOTA: ESTADO
         if (!!data.status?.status) {
             const list = FormatSingleListToSelect(data.status?.status);
             setStatus((list))
         }
 
-        // NOTE: EXPERIENCE
+        // NOTA: EXPERIENCIA
         if (!!data.experience?.experience) {
             const list = FormatSingleListToSelect(data.experience?.experience);
             setExperience((list))
         }
-        // NOTE: WORK MODE
+        // NOTA: MODO DE TRABAJO
         if (!!data.workmode?.workmode) {
             const list = FormatSingleListToSelect(data.workmode?.workmode);
             setWorkmode((list))
         }
 
-        // NOTE: LIST STATUS
+         // NOTA: MODO DE TRABAJO
+         if (!!data.skills) {
+            const list = FormatListToSelect(data.skills);
+            setSkills((list))
+        }
+
+        // NOTA: LISTA DE ESTADOS
         if (!listStatus.length) {
             callServicer(genericsRoutes.list_status)
                 .then((response) => {
@@ -89,7 +98,7 @@ export default function EditProfile({
                 })
                 .catch((err) => console.log(err));
         }
-        // NOTE: LIST EXPERIENCE
+        // NOTA: LISTA DE EXPERIENCIA
         if (!listExperience.length) {
             callServicer(genericsRoutes.list_experience)
                 .then((response) => {
@@ -97,11 +106,19 @@ export default function EditProfile({
                 })
                 .catch((err) => console.log(err));
         }
-        // NOTE: LIST WORK MODE
+        // NOTA: LISTA DE MODO DE TRABAJO
         if (!listWorkMode.length) {
             callServicer(genericsRoutes.list_workmode)
                 .then((response) => {
                     setListWorkMode(response);
+                })
+                .catch((err) => console.log(err));
+        }
+         // NOTA: LISTA DE HABILIDADES
+         if (!listSkills.length) {
+            callServicer(genericsRoutes.list_skills)
+                .then((response) => {
+                    setListSkills(response);
                 })
                 .catch((err) => console.log(err));
         }
@@ -114,7 +131,7 @@ export default function EditProfile({
         return FormatListToSelect(response?.data as TypeLists[]);
     }
 
-    // NOTE: UPDATE STATUS EXPERT
+    // NOTA: ACTUALIZAR ESTADO DEL EXPERTO
     const handleChangeStatus = async (option: SingleValue<TypeListsSelect>) => {
         const parseData = {
             id_status: option?._id,
@@ -125,7 +142,7 @@ export default function EditProfile({
         await updateExpertService()
     }
 
-    // NOTE: UPDATE EXPERIENCE EXPERT
+    // NOTA: ACTUALIZAR EXPERIENCIA DEL EXPERTO
     const handleChangeExperience = async (option: SingleValue<TypeListsSelect>) => {
         const parseData = {
             id_experience: option?._id,
@@ -135,7 +152,7 @@ export default function EditProfile({
         await callEndpoint(ExpertsServiceUpdate(parseData, `${experts.experts_experience}`, data.token))
         await updateExpertService()
     }
-    // NOTE: UPDATE EXPERIENCE EXPERT
+    // NOTA: ACTUALIZAR MODO DE TRABAJO DEL EXPERTO
     const handleChangeWorkMode = async (option: SingleValue<TypeListsSelect>) => {
         const parseData = {
             id_work_mode: option?._id,
@@ -145,7 +162,17 @@ export default function EditProfile({
         await callEndpoint(ExpertsServiceUpdate(parseData, `${experts.experts_workmode}`, data.token))
         await updateExpertService()
     }
-    // NOTE: UPDATE PERSONAL INFO
+
+    const handleChangeSkills = async (options: MultiValue<TypeListsSelect>) => {
+        const parseData = {
+            id_skills: options.map(o => o._id),
+            id_exp: idExpert
+        }
+        setSkills(options);
+        await callEndpoint(ExpertsServiceUpdate(parseData, `${experts.experts_skills}`, data.token))
+        await updateExpertService()
+    }
+    // NOTA: ACTUALIZAR INFORMACIÓN PERSONAL
     const handleEdit = async () => {
         const dataToSend = {
             title: values.title,
@@ -163,38 +190,38 @@ export default function EditProfile({
         <Modal
             show={showModal}
             onClose={onClose}
-            title="Edit Profile"
-            labelButton="Save"
+            title="Editar Perfil"
+            labelButton="Guardar"
             handleAction={() => void handleEdit()}
         >
-            <h4 className="label font-bold text-sm text-text-100 mb-4">Profile</h4>
+            <h4 className="label font-bold text-sm text-text-100 mb-4">Perfil</h4>
             <Input
                 data={{
-                    label: "Title",
+                    label: "Título",
                     name: "title",
                     value: values.title,
-                    placeholder: "Medical hair doctor",
+                    placeholder: "Médico especialista capilar",
                     onChange: handleChangeInput,
                 }}
             />
             <TextArea
                 data={{
-                    label: "Description",
+                    label: "Descripción",
                     name: "description",
                     value: values.description,
-                    placeholder: "Talk about you",
+                    placeholder: "Habla sobre ti",
                     onChange: handleChangeTextArea,
                 }}
             />
             <h4 className="label font-bold text-sm text-text-100 mb-4">
-                Experience
+                Experiencia
             </h4>
 
             <Select
                 data={{
-                    label: "Select your experience time",
+                    label: "Selecciona tu tiempo de experiencia",
                     name: "experience",
-                    placeholder: "Experience",
+                    placeholder: "Experiencia",
                     options: listExperience,
                     value: experience,
                     onSelect: handleChangeExperience,
@@ -202,14 +229,29 @@ export default function EditProfile({
             />
 
             <h4 className="label font-bold text-sm text-text-100 mb-4">
-                Work mode
+                Habilidades
+            </h4>
+
+            <CustomMultiSelect
+                data={{
+                    label: "Selecciona tus habilidades",
+                    name: "skills",
+                    placeholder: "Habilidades",
+                    options: listSkills,
+                    value: skills,
+                    onSelect: handleChangeSkills,
+                }}
+            />
+
+            <h4 className="label font-bold text-sm text-text-100 mb-4">
+                Modo de trabajo
             </h4>
 
             <Select
                 data={{
-                    label: "Select your work-mode",
+                    label: "Selecciona tu modo de trabajo",
                     name: "experience",
-                    placeholder: "Experience",
+                    placeholder: "Experiencia",
                     options: listWorkMode,
                     value: workmode,
                     onSelect: handleChangeWorkMode,
@@ -217,14 +259,14 @@ export default function EditProfile({
             />
 
             <h4 className="label font-bold text-sm text-text-100 mb-4">
-                Status
+                Estado
             </h4>
 
             <Select
                 data={{
-                    label: "Change status",
+                    label: "Cambiar estado",
                     name: "status",
-                    placeholder: "Status",
+                    placeholder: "Estado",
                     options: listStatus,
                     value: status,
                     onSelect: handleChangeStatus,

@@ -87,16 +87,16 @@ export default function SignIn() {
                 />
                 <div className="head py-20">
                     <h2 className=" text-text-100 text-xl text-center mb-6 font-bold">
-                        Good to see you here!
+                        ¡Qué bueno verte aquí!
                     </h2>
 
-                    <h4 className="text-text-100 text-center font-bold">Sign In</h4>
+                    <h4 className="text-text-100 text-center font-bold">Iniciar sesión</h4>
                 </div>
 
                 <form className="content-form max-w-sm mx-auto" onSubmit={handleSignIn}>
                     <Input
                         data={{
-                            label: "Email",
+                            label: "Correo electrónico",
                             name: "email",
                             value: values.email,
                             placeholder: "lucia@example.com",
@@ -107,7 +107,7 @@ export default function SignIn() {
                     />
                     <Input
                         data={{
-                            label: "Password",
+                            label: "Contraseña",
                             name: "password",
                             value: values.password,
                             placeholder: "********",
@@ -117,7 +117,7 @@ export default function SignIn() {
                         }}
                     >
                         <span className="text-xs text-text-70 hover:text-text-90 text-right px-4">
-                            Forgot your password?
+                            ¿Olvidaste tu contraseña?
                         </span>
                     </Input>
 
@@ -133,14 +133,14 @@ export default function SignIn() {
                             htmlFor="keep_session"
                             className="text-sm font-bold text-text-90 inline-block ml-2"
                         >
-                            Keep open session?
+                            ¿Mantener sesión abierta?
                         </label>
                     </div>
                     <button
                         type="submit"
                         className="uppercase rounded-md border-none bg-primary text-white text-center w-72 block mx-auto py-2.5 px-4 font-bold mt-6 hover:bg-primary-hover outline-none"
                     >
-                        Sign in
+                        Iniciar sesión
                     </button>
 
                     {error !== null ? (
@@ -152,15 +152,15 @@ export default function SignIn() {
 
                 <div className="flex mt-10 mx-auto w-4/5 items-center gap-2">
                     <hr className="flex-1 border-text-50 block"></hr>
-                    <span className="flex-2 text-sm text-text-90">Or login with</span>
+                    <span className="flex-2 text-sm text-text-90">O inicia sesión con</span>
                     <hr className="flex-1 border-text-50 block"></hr>
                 </div>
 
                 <div className="my-10 w-72 mx-auto">
                     <span className="text-xs text-center text-text-90 block">
-                        Don&apos;t have a account?,{" "}
+                        ¿No tienes una cuenta?,{" "}
                         <strong className="text-primary">
-                            <Link to="/signup">Register now</Link>
+                            <Link to="/signup">Regístrate ahora</Link>
                         </strong>{" "}
                     </span>
                 </div>

@@ -34,14 +34,14 @@ export default function ProfileHeader({ data, children }: IProps) {
     const { updateUserService } = useUpdateUser()
 
     const handleClickCover = () => {
-        handleToggleModalWithLabel("modal_profile_header", 'Add Image', ActionModal.open, 'Save');
+        handleToggleModalWithLabel("modal_profile_header", 'Agregar Imagen', ActionModal.open, 'Guardar');
     };
     const handleClickBgCover = () => {
-        handleToggleModalWithLabel("modal_profile_bg_header", 'Add Image', ActionModal.open, 'Save');
+        handleToggleModalWithLabel("modal_profile_bg_header", 'Agregar Imagen', ActionModal.open, 'Guardar');
     };
 
     const handleUploadImage = async () => {
-        // TODO: VALIDATE FIELDS
+        // TODO: VALIDAR CAMPOS
         if (!generalStorage.imageUpload.length) {
             return;
         }
@@ -54,7 +54,7 @@ export default function ProfileHeader({ data, children }: IProps) {
         const blob = await base64ToBlob(generalStorage.imageUpload[0].data_url);
         const formData = new FormData();
         formData.append("image", blob)
-        // function to save data
+        // función para guardar los datos
         await callEndpoint(
             UploadImageService(`${url}`, formData, userStorage.token)
         )
@@ -76,7 +76,7 @@ export default function ProfileHeader({ data, children }: IProps) {
                             src={expert.bgPhoto || userStorage.bgPhoto || "https://ibb.co/nkHWfpM"}
                             width={1200}
                             height={600}
-                            alt="Cover photo"
+                            alt="Foto de portada"
                             className="object-cover object-center h-full w-full xl:rounded-xl max-h-[400px]"
                         />
                     </div>
@@ -88,7 +88,7 @@ export default function ProfileHeader({ data, children }: IProps) {
                                         src="/assets/icons/camera-icon.svg"
                                         width={24}
                                         height={24}
-                                        alt="Camera icon"
+                                        alt="Ícono de cámara"
                                     />
                                 </button>
                             </div>
@@ -102,7 +102,7 @@ export default function ProfileHeader({ data, children }: IProps) {
                                 src={expert.picture || userStorage.picture || "https://ibb.co/KW52rjV"}
                                 width={244}
                                 height={244}
-                                alt="Photo"
+                                alt="Foto"
                                 className="object-cover object-center h-full"
                             />
                         </div>
@@ -114,7 +114,7 @@ export default function ProfileHeader({ data, children }: IProps) {
                                             src="/assets/icons/camera-icon.svg"
                                             width={24}
                                             height={24}
-                                            alt="Camera icon"
+                                            alt="Ícono de cámara"
                                         />
                                     </button>
                                 </div>
@@ -137,7 +137,7 @@ export default function ProfileHeader({ data, children }: IProps) {
 
             <UploadImage
                 showModal={statusModals.modal_profile_header.show}
-                onClose={() => handleToggleModalWithLabel('modal_profile_header', 'Add Image', ActionModal.close, '')}
+                onClose={() => handleToggleModalWithLabel('modal_profile_header', 'Agregar Imagen', ActionModal.close, '')}
                 label={statusModals.modal_profile_header.label}
                 labelButton={statusModals.modal_profile_header.labelButton}
                 handleAction={handleUploadImage}
@@ -145,7 +145,7 @@ export default function ProfileHeader({ data, children }: IProps) {
 
             <UploadImage
                 showModal={statusModals.modal_profile_bg_header.show}
-                onClose={() => handleToggleModalWithLabel('modal_profile_bg_header', 'Add Image', ActionModal.close, '')}
+                onClose={() => handleToggleModalWithLabel('modal_profile_bg_header', 'Agregar Imagen', ActionModal.close, '')}
                 label={statusModals.modal_profile_bg_header.label}
                 labelButton={statusModals.modal_profile_bg_header.labelButton}
                 handleAction={handleUploadImage}

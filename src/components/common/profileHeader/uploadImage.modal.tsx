@@ -14,7 +14,7 @@ export default function UploadImage({
   showModal,
   onClose,
   label,
-  labelButton = "Add",
+  labelButton = "Añadir",
   handleAction
 }: IProps) {
   return (

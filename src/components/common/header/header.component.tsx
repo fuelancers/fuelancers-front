@@ -19,13 +19,13 @@ interface MenuList {
 
 const Links: MenuList[] = [
     {
-        label: 'Find experts',
+        label: 'Buscar expertos',
         href: '/find-experts',
         icon: 'search-expert',
         id: 11,
     },
     {
-        label: 'My profile',
+        label: 'Mi perfil',
         href: '/profile',
         icon: 'profile',
         private: true,

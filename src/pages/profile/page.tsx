@@ -20,7 +20,7 @@ export default function Profile() {
                     <ProfileComponent user={user} viewport={viewport} />
                 ) : (
                     <div>
-                        <h3 className='text-center'>Edit your profile here!.</h3>
+                        <h3 className='text-center'>¡Edita tu perfil aquí!</h3>
                     </div>
                 )
             }

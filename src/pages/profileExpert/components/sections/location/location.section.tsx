@@ -13,8 +13,8 @@ export default function Location({ isOwner }: IProps) {
     return (
         <Box
             data={{
-                label: 'Location',
-                onClickEdit: () => handleToggleModalWithLabel('modal_location', 'Add Location', ActionModal.open, 'Save'),
+                label: 'Ubicación',
+                onClickEdit: () => handleToggleModalWithLabel('modal_location', 'Agregar Ubicación', ActionModal.open, 'Guardar'),
             }}
             isOwner={isOwner}
             icon="add"

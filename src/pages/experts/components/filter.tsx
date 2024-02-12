@@ -29,11 +29,47 @@ function Filter({
   showMap,
   data,
 }: IProps) {
+
   return (
     <>
+    <div>
+        <div className="flex items-start">
+          <h5 className="font-bold text-sm md:text-base text-text-100 mb-4">
+            Distancia ({values?.range_distance}km)
+          </h5>
+          {showMap && (
+            <button
+              className={`flex cursor-default ml-auto mr-[1px] w-fit relative lg:cursor-pointer hover:opacity-70`}
+              onClick={showMap}
+            >
+              <img
+                src="/assets/icons/gps-icon.svg"
+                width={17}
+                height={17}
+                alt="Icono de GPS"
+                className="inline-block"
+              />
+            </button>
+          )}
+        </div>
+
+        <RangeInput
+          data={{
+            min: 100,
+            max: 700,
+            value: values?.range_distance,
+            symbol: "km",
+            name: "range_distance",
+            symbolPosition: "right",
+          }}
+          handleChange={handleChangeInput}
+        />
+
+        <hr className="separator my-9" />
+      </div>
       <div>
         <h5 className="font-bold text-sm md:text-base text-text-100 mb-4">
-          Experience
+          Experiencia
         </h5>
         {!!data?.list_experience?.length ? (
           data?.list_experience?.map((exp, i: number) => (
@@ -55,44 +91,10 @@ function Filter({
         <hr className="separator my-9   " />
       </div>
 
-      <div>
-        <div className="flex items-start">
-          <h5 className="font-bold text-sm md:text-base text-text-100 mb-4">
-            Distance ({values?.range_distance}km)
-          </h5>
-          {showMap && (
-            <button
-              className={`flex cursor-default ml-auto mr-[1px] w-fit relative lg:cursor-pointer hover:opacity-70`}
-              onClick={showMap}
-            >
-              <img
-                src="/assets/icons/gps-icon.svg"
-                width={17}
-                height={17}
-                alt="Gps icon"
-                className="inline-block"
-              />
-            </button>
-          )}
-        </div>
-
-        <RangeInput
-          data={{
-            min: 100,
-            max: 700,
-            value: values?.range_distance,
-            symbol: "km",
-            name: "range_distance",
-            symbolPosition: "right",
-          }}
-          handleChange={handleChangeInput}
-        />
-
-        <hr className="separator my-9" />
-      </div>
+      
 
       {/* <div>
-                <h5 className="font-bold text-sm md:text-base text-text-100 mb-4">Price</h5>
+                <h5 className="font-bold text-sm md:text-base text-text-100 mb-4">Precio</h5>
 
                 <RangeInput
                     data={{
@@ -108,9 +110,33 @@ function Filter({
                 <hr className="separator my-9" />
             </div> */}
 
+<div>
+        <h5 className="font-bold text-sm md:text-base  text-text-100 mb-4">
+          Habilidades
+        </h5>
+        {!!data?.list_categories?.length ? (
+          data?.list_categories?.map((skill, i: number) => (
+            <Checkbox
+              key={skill._id}
+              data={{
+                checked: values.skill.includes(skill._id),
+                name: "skill",
+                label: skill.label,
+                id: `${skill.label}-${i + 1}`,
+              }}
+              handleChange={() => handleChangeCheckbox("skill", skill._id)}
+            />
+          ))
+        ) : (
+          <LoaderFilter />
+        )}
+
+        <hr className="separator my-9   " />
+      </div>
+
       <div>
         <h5 className="font-bold text-sm md:text-base  text-text-100 mb-4">
-          Language
+          Idioma
         </h5>
         {!!data?.list_language?.length ? (
           data.list_language.map((lang, i: number) => (
@@ -134,7 +160,7 @@ function Filter({
 
       <div>
         <h5 className="font-bold text-sm md:text-base  text-text-100 mb-4">
-          Working mode
+          Modo de trabajo
         </h5>
         {!!data?.list_workmode?.length ? (
           data?.list_workmode?.map((work, i: number) => (

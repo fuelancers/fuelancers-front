@@ -32,7 +32,7 @@ export default function UpsertDegree({
   showModal,
   onClose,
   label,
-  labelButton = "Add",
+  labelButton = "Añadir",
   expert,
 }: IProps) {
   const {
@@ -73,7 +73,7 @@ export default function UpsertDegree({
   }, [idDegree]);
 
   const handleSave = async () => {
-    // TODO: save the degree
+    // TODO: guardar el grado
     const parseData = {
       field: values.field_study,
       academicDegree: values.academic,
@@ -131,28 +131,28 @@ export default function UpsertDegree({
     >
       <Input
         data={{
-          label: "Field of study",
+          label: "Campo de estudio",
           name: "field_study",
           value: values.field_study,
-          placeholder: "Pharmacy...",
+          placeholder: "Farmacia...",
           onChange: handleChangeInput,
         }}
       />
       <Input
         data={{
-          label: "Bachelor's degree",
+          label: "Grado académico",
           name: "academic",
           value: values.academic,
-          placeholder: "doctoral degree",
+          placeholder: "Doctorado",
           onChange: handleChangeInput,
         }}
       />
       <Input
         data={{
-          label: "School",
+          label: "Escuela",
           name: "school",
           value: values.school,
-          placeholder: "School",
+          placeholder: "Escuela",
           onChange: handleChangeInput,
         }}
       />
@@ -162,7 +162,7 @@ export default function UpsertDegree({
             data={{
               format: EDateFormat.YYYY_MM,
               name: "start_date",
-              label: "Start date",
+              label: "Fecha de inicio",
               value: values.start_date,
               placeholder: "yyyy-mm",
               onChange: handleChangeDate,
@@ -174,7 +174,7 @@ export default function UpsertDegree({
             data={{
               format: EDateFormat.YYYY_MM,
               name: "end_date",
-              label: "End date",
+              label: "Fecha de fin",
               value: values.end_date,
               placeholder: "yyyy-mm",
               onChange: handleChangeDate,
@@ -184,7 +184,7 @@ export default function UpsertDegree({
             <div className="mt-2">
               <Checkbox
                 data={{
-                  label: "Current studying",
+                  label: "Estudiando actualmente",
                   name: "current_studying",
                   checked: values.current_studying,
                   id: "current_studying",
@@ -203,7 +203,7 @@ export default function UpsertDegree({
             className="btn text-alert-danger text-sm mx-0 my-5 w-fit cursor-pointer"
             onClick={handleDeleteDegree}
           >
-            Delete degree
+            Eliminar grado
           </button>
         </div>
       ) : null}

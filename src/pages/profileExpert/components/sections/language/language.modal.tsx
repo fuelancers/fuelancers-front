@@ -45,7 +45,7 @@ export default function UpsertLanguage({
   showModal,
   onClose,
   label,
-  labelButton = "Add",
+  labelButton = "Añadir",
 }: IProps) {
   const dispatch = useDispatch();
 
@@ -55,7 +55,7 @@ export default function UpsertLanguage({
   const { callEndpoint } = useFetch();
   const { updateExpertService } = useUpdateExpert()
 
-  // NOTE: check if data exists
+  // NOTA: verifica si los datos existen
   useEffect(() => {
     if (!listGeneralServices.list_languages.length) {
       callEndpoint<IResponse<TypeLists[]>>(
@@ -116,9 +116,9 @@ export default function UpsertLanguage({
     >
       <Select
         data={{
-          label: "Language",
+          label: "Idioma",
           name: "language",
-          placeholder: "Language",
+          placeholder: "Idioma",
           value: values.language,
           options: listGeneralServices.list_languages,
           onSelect: (option) => handleChangeSelect(option, "language"),
@@ -126,9 +126,9 @@ export default function UpsertLanguage({
       />
       <Select
         data={{
-          label: "Proficiency",
+          label: "Nivel de dominio",
           name: "proficiency",
-          placeholder: "Proficiency",
+          placeholder: "Nivel de dominio",
           value: values.proficiency,
           options: listGeneralServices.list_proficiency,
           onSelect: (option) => handleChangeSelect(option, "proficiency"),

@@ -25,19 +25,19 @@ export default function Home() {
           </div>
           <div className="relative z-20 px-4 md:px-8 mx-auto flex flex-col h-full justify-center ">
             <h1 className="text-[2.7rem] leading-[3.5rem] md:text-[3rem] md:leading-[4.1rem] font-black text-white text-center pb-10">
+              Talento en{" "}
               <span className="text-[2.7rem] leading-[3.5rem] text-[#20E0B5] md:text-[3rem] md:leading-[4.1rem] font-black text-center ">
-                Hair surgery
-              </span>{" "}
-              talent at <br />
-              one click
+                cirugía capilar
+              </span><br />
+              a un clic
             </h1>
 
             <p className="text-white text-center text-md mb-12 mx-auto px-8 md:px-4">
-              The best experts in your area at your service.
+              Los mejores expertos en tu área a tu servicio.
             </p>
             <Link to={routesWeb.find_experts} className="mx-auto text-md">
               <button className="text-sm md:text-[15px] text-white bg-[#18C29C] px-9 py-3 hover:bg-[#129578] rounded-md mx-auto font-semibold">
-                Find a Technician
+                Encontrar un técnico
               </button>
             </Link>
           </div>
@@ -45,13 +45,13 @@ export default function Home() {
       </section>
 
       {/* <ContentSections
-        label="We connect expert in FUE and clinics"
+        label="Conectamos expertos en FUE y clínicas"
         styles="bg-white"
       >
         <div className=" md:flex md:justify-center md:items-center gap-8 ">
           <p className="paragraph text-justify">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus,
-            debitis. Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus,
+            debitis. Lorem ipsum dolor sit amet consectetur adipisicing elit.
             Possimus, debitis.
           </p>
           <div className="relative md:min-w-[250px]">
@@ -73,11 +73,11 @@ export default function Home() {
         </div>
       </ContentSections> */}
 
-      {/* STEPS */}
-      {/* <ContentSections label="How do we do it?" styles="bg-text-30" rounded>
+      {/* PASOS */}
+      {/* <ContentSections label="¿Cómo lo hacemos?" styles="bg-text-30" rounded>
         <div className="step-one">
           <h5 className="text-text-90 md:text-xl font-bold text-center mb-6">
-            Step one
+            Paso uno
           </h5>
           <div className="flex gap-4 md:gap-8 items-center mb-10">
             <p className="paragraph text-justify flex-2">
@@ -96,7 +96,7 @@ export default function Home() {
         </div>
         <div className="step-two">
           <h5 className="text-text-90 md:text-xl font-bold text-center mb-6">
-            Step two
+            Paso dos
           </h5>
           <div className="flex gap-4 md:gap-8 items-center mb-10">
             <img
@@ -123,12 +123,12 @@ export default function Home() {
       </ContentSections> */}
 
       {/* <ContentSections
-        label="Services to help you get healthier."
+        label="Servicios para ayudarte a estar más saludable."
         styles="bg-white"
       >
         <Button
           data={{
-            label: "Find experts",
+            label: "Encontrar expertos",
             customStyles: "btn-primary mt-20",
           }}
         />
@@ -136,8 +136,8 @@ export default function Home() {
 
       <WhyChooseUse />
 
-      {/* join our */}
-      {/* <ContentSections label="Are you a expert?." styles="bg-text-30" rounded>
+      {/* únete a nosotros */}
+      {/* <ContentSections label="¿Eres un experto?." styles="bg-text-30" rounded>
         <ul className="list-none flex gap-6 flex-col ">
           <li className="flex gap-2 items-center text-sm text-text-90 md:justify-center">
             <img
@@ -182,7 +182,7 @@ export default function Home() {
 
         <Button
           data={{
-            label: "Join us",
+            label: "Únete a nosotros",
             customStyles: "btn-extra mt-20",
           }}
         />

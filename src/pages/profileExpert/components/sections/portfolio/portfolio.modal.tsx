@@ -35,7 +35,7 @@ export default function UpsertResults({
   showModal,
   onClose,
   label,
-  labelButton = "Add",
+  labelButton = "Añadir",
 }: IProps) {
   const [searchParams, setSearchParams] = useSearchParams();
   const { values, handleChangeInput, setValues } = useFormValues<IForm>(InitialFormState);
@@ -52,7 +52,7 @@ export default function UpsertResults({
   useEffect(() => {
     if (!idPortfolio) return;
 
-    // TODO: this is a edit modal;
+    // TODO: este es un modal de edición;
     const getPortfolio = expert.portfolios.filter((portfolio) => portfolio.portfolio._id === idPortfolio);
 
     if (!getPortfolio.length) return;
@@ -65,7 +65,7 @@ export default function UpsertResults({
   }, [idPortfolio])
 
   const handleUploadImage = async () => {
-    // TODO: VALIDATE FIELDS
+    // TODO: VALIDAR CAMPOS
     if (!generalStorage.imageUpload.length) {
       return;
     }
@@ -79,12 +79,12 @@ export default function UpsertResults({
     formData.append("cite", values.cite)
 
     if (!!idPortfolio) {
-      // function to create update portfolio
+      // función para actualizar el portfolio
       await callEndpoint(
         UpdateUploadImageService(`${experts.experts_portfolio}?id_portfolio=${idPortfolio}`, formData, userStorage.token)
       )
     } else {
-      // function to create new portfolio
+      // función para crear un nuevo portfolio
       await callEndpoint(
         UploadImageService(`${experts.experts_portfolio}`, formData, userStorage.token)
       )
@@ -113,10 +113,10 @@ export default function UpsertResults({
       <ImageUploader isMultiple={false} />
       <Input
         data={{
-          label: "Cite",
+          label: "Cita",
           name: "cite",
           value: values.cite,
-          placeholder: "My first job",
+          placeholder: "Mi primer trabajo",
           onChange: handleChangeInput,
         }}
       />
@@ -124,7 +124,7 @@ export default function UpsertResults({
         !!idPortfolio ? (
           <div>
             <button className="btn text-alert-danger text-sm mx-0 my-5 w-fit cursor-pointer" onClick={handleDeleteDegree}>
-              Delete result
+              Eliminar resultado
             </button>
           </div>
         ) : null

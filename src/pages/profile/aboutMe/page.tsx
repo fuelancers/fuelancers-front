@@ -41,19 +41,19 @@ export default function AboutMe() {
                     />
                 </button>
 
-                <h5 className="font-bold text-text-100">My personal Data</h5>
+                <h5 className="font-bold text-text-100">Mis datos personales</h5>
 
                 <hr className="separator w-full" />
             </div>
 
             <div className="content w-11/12 lg:w-full mx-auto flex flex-col gap-7 pb-8">
                 <div className="content-box">
-                    <h4 className="text-text-100 text-sm font-bold">About you</h4>
+                    <h4 className="text-text-100 text-sm font-bold">Sobre ti</h4>
                     <hr className="separator w-full" />
                     <form action="">
                         <Input
                             data={{
-                                label: 'Name',
+                                label: 'Nombre',
                                 name: 'name',
                                 value: values.first_name,
                                 placeholder: 'Hannah',
@@ -62,7 +62,7 @@ export default function AboutMe() {
                         />
                         <Input
                             data={{
-                                label: 'LastName',
+                                label: 'Apellido',
                                 name: 'name',
                                 value: values.last_name,
                                 placeholder: 'Jones Miller',
@@ -71,35 +71,35 @@ export default function AboutMe() {
                         />
                         <Input
                             data={{
-                                label: 'Profession',
+                                label: 'Profesión',
                                 name: 'profession',
                                 value: values.profession,
-                                placeholder: 'Medical hair',
+                                placeholder: 'Médico',
                                 onChange: handleChangeInput,
                             }}
                         />
 
                         <TextArea
                             data={{
-                                label: 'Description',
+                                label: 'Descripción',
                                 name: 'description',
                                 value: values.description,
-                                placeholder: 'Talk about you',
+                                placeholder: 'Háblanos de ti',
                                 onChange: handleChangeTextArea,
                             }}
                         />
 
-                        <Button data={{ label: 'Save', disabled: true }} />
+                        <Button data={{ label: 'Guardar', disabled: true }} />
                     </form>
                 </div>
 
                 <div className="content-box">
-                    <h4 className="text-text-100 text-sm font-bold">Contact</h4>
+                    <h4 className="text-text-100 text-sm font-bold">Contacto</h4>
                     <hr className="separator w-full" />
                     <form action="">
                         <Input
                             data={{
-                                label: 'Location',
+                                label: 'Ubicación',
                                 name: 'location',
                                 value: values.location,
                                 placeholder: 'Madrid...',
@@ -111,17 +111,17 @@ export default function AboutMe() {
                                 label: 'Email',
                                 name: 'email',
                                 value: values.email,
-                                placeholder: 'contact_me@example.com',
+                                placeholder: 'contacto@example.com',
                                 onChange: handleChangeInput,
                             }}
                         />
 
                         <Input
                             data={{
-                                label: 'Phone number',
+                                label: 'Número de teléfono',
                                 name: 'phone',
                                 value: values.phone,
-                                placeholder: '+98 765 4321',
+                                placeholder: '+34 123 456 789',
                                 onChange: (e: React.FormEvent<HTMLInputElement>) =>
                                     handleChangeInput(e, ValidationForm.number),
                             }}
@@ -131,7 +131,7 @@ export default function AboutMe() {
                             data={{
                                 name: 'fb_link',
                                 value: values.fb_link,
-                                placeholder: 'link...',
+                                placeholder: 'Enlace...',
                                 onChange: handleChangeInput,
                                 inline: true,
                                 icon: 'fb',
@@ -141,7 +141,7 @@ export default function AboutMe() {
                             data={{
                                 name: 'ig_link',
                                 value: values.ig_link,
-                                placeholder: 'link...',
+                                placeholder: 'Enlace...',
                                 onChange: handleChangeInput,
                                 inline: true,
                                 icon: 'ig',
@@ -151,7 +151,7 @@ export default function AboutMe() {
                             data={{
                                 name: 'twitter_link',
                                 value: values.twitter_link,
-                                placeholder: 'link...',
+                                placeholder: 'Enlace...',
                                 onChange: handleChangeInput,
                                 inline: true,
                                 icon: 'twitter',
@@ -161,24 +161,24 @@ export default function AboutMe() {
                             data={{
                                 name: 'in_link',
                                 value: values.in_link,
-                                placeholder: 'link...',
+                                placeholder: 'Enlace...',
                                 onChange: handleChangeInput,
                                 inline: true,
                                 icon: 'linkedin',
                             }}
                         />
 
-                        <Button data={{ label: 'Save', disabled: true }} />
+                        <Button data={{ label: 'Guardar', disabled: true }} />
                     </form>
                 </div>
 
                 <div className="content-box">
-                    <h4 className="text-text-100 text-sm font-bold">Change password</h4>
+                    <h4 className="text-text-100 text-sm font-bold">Cambiar contraseña</h4>
                     <hr className="separator w-full" />
                     <form action="">
                         <Input
                             data={{
-                                label: 'Password',
+                                label: 'Contraseña',
                                 name: 'change_password',
                                 value: values.change_password,
                                 placeholder: '******',
@@ -187,22 +187,22 @@ export default function AboutMe() {
                             }}
                         >
                             <span className="text-xs text-alert-warnig">
-                                Enter your current password to change it
+                                Ingresa tu contraseña actual para cambiarla
                             </span>
                         </Input>
 
-                        <Button data={{ label: 'Continue' }} />
+                        <Button data={{ label: 'Continuar' }} />
                     </form>
                 </div>
 
                 <div className="content-delete-account mt-12">
-                    <h5 className="text-sm font-bold text-text-100">Delete account</h5>
+                    <h5 className="text-sm font-bold text-text-100">Eliminar cuenta</h5>
 
                     <span className="text-xs text-alert-danger">
-                        do you really want to delete the account?
+                        ¿Realmente deseas eliminar la cuenta?
                     </span>
 
-                    <Button data={{ label: 'Delete', customStyles: 'bg-alert-danger mx-0 w-48' }} />
+                    <Button data={{ label: 'Eliminar', customStyles: 'bg-alert-danger mx-0 w-48' }} />
                 </div>
             </div>
         </main>

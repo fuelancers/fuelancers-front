@@ -9,22 +9,22 @@ const menuOptions = [
     {
         id: 1,
         href: '/profile/about-me',
-        label: 'My personal data',
+        label: 'Mis datos personales',
     },
     {
         id: 2,
         href: '/profile/about-me',
-        label: 'My clinic',
+        label: 'Mi clínica',
     },
     {
         id: 3,
         href: '/profile/about-me',
-        label: 'Favorites',
+        label: 'Favoritos',
     },
     {
         id: 4,
         href: '/profile/about-me',
-        label: 'My contacts',
+        label: 'Mis contactos',
     },
 ];
 
@@ -47,7 +47,7 @@ export default function ProfileComponent({ style, children, user, viewport }: IP
             >
                 {
                     user?.role === Role.EXPERT ? (
-                        <Link className='btn btn-primary text-sm mt-4 ml-auto mr-0 text-center' to={`/expert/${user?._id}`}>See my expert profile </Link>
+                        <Link className='btn btn-primary text-sm mt-4 ml-auto mr-0 text-center' to={`/expert/${user?._id}`}>Ver mi perfil de experto</Link>
                     ) : null
                 }
             </ProfileHeader>
@@ -70,7 +70,7 @@ export default function ProfileComponent({ style, children, user, viewport }: IP
                                     src="/assets/icons/chevron-right-icon.svg"
                                     width={8}
                                     height={15}
-                                    alt="Chevron right"
+                                    alt="Flecha derecha"
                                 />
                             </Link>
                         )

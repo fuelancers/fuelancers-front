@@ -92,25 +92,25 @@ export default function SignUp() {
                 />
                 <div className="head py-20">
                     <h2 className=" text-text-100 text-xl text-center mb-6 font-bold">
-                        Good to see you here!
+                        ¡Qué bueno verte aquí!
                     </h2>
 
                     <h4 className="text-text-100 text-center font-bold">
-                        Input your client account information
+                        Ingresa la información de tu cuenta de cliente
                     </h4>
 
                     <button
                         className="text-primary text-center text-sm block mx-auto border-2 rounded-xl py-1 px-6 hover:text-primary-hover duration-300 mt-10"
                         onClick={handleTypeUser}
                     >
-                        {isFreelancer ? 'Are you client?' : 'Are you freelancer?'}
+                        {isFreelancer ? '¿Eres cliente?' : '¿Eres freelancer?'}
                     </button>
                 </div>
 
                 <form className="content-form max-w-sm mx-auto" onSubmit={handleSignUp}>
                     <Input
                         data={{
-                            label: 'First name',
+                            label: 'Nombre',
                             name: 'first_name',
                             value: values.first_name,
                             placeholder: 'Lucia',
@@ -120,7 +120,7 @@ export default function SignUp() {
                     />
                     <Input
                         data={{
-                            label: 'Last name',
+                            label: 'Apellido',
                             name: 'last_name',
                             value: values.last_name,
                             placeholder: 'Lapor Rivas',
@@ -130,7 +130,7 @@ export default function SignUp() {
                     />
                     <Input
                         data={{
-                            label: 'Email',
+                            label: 'Correo electrónico',
                             name: 'email',
                             value: values.email,
                             placeholder: 'lucia@example.com',
@@ -140,7 +140,7 @@ export default function SignUp() {
                     />
                     <Input
                         data={{
-                            label: 'Password',
+                            label: 'Contraseña',
                             name: 'password',
                             value: values.password,
                             placeholder: '********',
@@ -152,7 +152,7 @@ export default function SignUp() {
 
                     <Input
                         data={{
-                            label: 'Repeat password',
+                            label: 'Repetir contraseña',
                             name: 'repeat_password',
                             value: values.repeat_password,
                             placeholder: '********',
@@ -164,7 +164,7 @@ export default function SignUp() {
                     {isFreelancer ? (
                         <Input
                             data={{
-                                label: 'Phone number',
+                                label: 'Número de teléfono',
                                 name: 'phone_number',
                                 value: values.phone_number,
                                 placeholder: '+12 3456 789',
@@ -176,7 +176,7 @@ export default function SignUp() {
                     ) : null}
 
                     <button type="submit" className="btn btn-primary w-72 block mx-auto mt-6">
-                        Sign up
+                        Registrarse
                     </button>
 
                     {error !== null ? (
@@ -188,15 +188,15 @@ export default function SignUp() {
 
                 <div className="flex mt-10 mx-auto w-4/5 items-center gap-2">
                     <hr className="flex-1 border-text-50 block"></hr>
-                    <span className="flex-2 text-sm text-text-90">Or login with</span>
+                    <span className="flex-2 text-sm text-text-90">O inicia sesión con</span>
                     <hr className="flex-1 border-text-50 block"></hr>
                 </div>
 
                 <div className="my-10 w-72 mx-auto">
                     <span className="text-xs text-center text-text-90 block">
-                        Already have an account?,{' '}
+                        ¿Ya tienes una cuenta?,{' '}
                         <strong className="text-primary">
-                            <Link to="/signin">Sign in</Link>
+                            <Link to="/signin">Iniciar sesión</Link>
                         </strong>
                     </span>
                 </div>

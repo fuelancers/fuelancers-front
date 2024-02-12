@@ -83,7 +83,7 @@ export default function ProfileExpert() {
             {!isOwner ? (
               <Button
                 data={{
-                  label: "Contact me now",
+                  label: "Contáctame ahora",
                   customStyles: "btn-secondary text-sm md:mt-6 lg:mr-8 ",
                   onClick: () =>
                     handleToggleModal("modal_contanct", ActionModal.open),
@@ -101,7 +101,7 @@ export default function ProfileExpert() {
             {/* TODO: location */}
             <div className="label mb-10">
               <h5 className="font-bold text-text-100 md:text-lg mb-4">
-                Location
+                Ubicación
               </h5>
               <div className="lg:pl-4 flex">
                 {isOwner && (
@@ -109,9 +109,9 @@ export default function ProfileExpert() {
                     onClick={() =>
                       handleToggleModalWithLabel(
                         "modal_location",
-                        "Edit location",
+                        "Editar ubicación",
                         ActionModal.open,
-                        "Save"
+                        "Guardar"
                       )
                     }
                     label=""
@@ -125,7 +125,7 @@ export default function ProfileExpert() {
 
             <div className="label mb-10">
               <h5 className="font-bold text-text-100 md:text-lg mb-4">
-                Workmode
+                Modo de trabajo
               </h5>
               <div className="lg:pl-4">
                 {isOwner && !expert.workmode?.workmode ? (
@@ -133,7 +133,7 @@ export default function ProfileExpert() {
                     onClick={() =>
                       handleToggleModal("modal_profile", ActionModal.open)
                     }
-                    label="Add work-mode"
+                    label="Agregar modo de trabajo"
                     icon="add"
                   />
                 ) : (
@@ -148,7 +148,7 @@ export default function ProfileExpert() {
             {/* TODO: languajes */}
             <div className="label mb-10">
               <h5 className="font-bold text-text-100 md:text-lg mb-4">
-                Languages
+                Idiomas
               </h5>
               <div className="lg:pl-4">
                 {isOwner && !expert.languages?.length ? (
@@ -156,12 +156,12 @@ export default function ProfileExpert() {
                     onClick={() =>
                       handleToggleModalWithLabel(
                         "modal_language",
-                        "Add Language",
+                        "Agregar idioma",
                         ActionModal.open,
-                        "Save"
+                        "Guardar"
                       )
                     }
-                    label="Add language"
+                    label="Agregar idioma"
                     icon="add"
                   />
                 ) : (
@@ -180,7 +180,7 @@ export default function ProfileExpert() {
             {/* TODO: social media */}
             <div className="label mb-10">
               <h5 className="font-bold text-text-100 md:text-lg mb-4">
-                Social networks
+                Redes sociales
               </h5>
               <div className="lg:px-4 flex justify-center items-center gap-6">
                 <img
@@ -214,7 +214,7 @@ export default function ProfileExpert() {
           <div className="body flex flex-col gap-7 w-11/12 mx-auto mt-8 lg:mt-0 pb-8">
             <Box
               data={{
-                label: "About me",
+                label: "Sobre mí",
                 id: "about",
               }}
               edit={false}
@@ -225,7 +225,7 @@ export default function ProfileExpert() {
                 </p>
               ) : (
                 <EmptyBox
-                  labelButton="Edit Description"
+                  labelButton="Editar descripción"
                   onClick={() =>
                     handleToggleModal("modal_profile", ActionModal.open)
                   }
@@ -259,6 +259,7 @@ export default function ProfileExpert() {
             status: expert.status,
             experience: expert.experience,
             workmode: expert.workmode,
+            skills: expert.skills,
             token: user.token,
           }}
           idExpert={expert._id}

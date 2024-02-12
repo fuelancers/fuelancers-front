@@ -9,7 +9,7 @@ export interface Expert {
   picture: string;
   profileInfo: PersonalInfo | null;
   status: IExpertStatus;
-  skills: { skill: list }[];
+  skills: list[];
   languages: DataLanguage[];
   location: ExpertLocationResponse;
   experience: IExpertExperience | null;
@@ -50,7 +50,7 @@ export interface User {
   picture: string;
   profileInfo: PersonalInfo | null;
   status: IExpertStatus;
-  skills: { skill: list; createdAt: string }[];
+  skills: list[];
   languages: DataLanguage[];
   experience: IExpertExperience | null;
   workmode: IExpertWorkMode | null;

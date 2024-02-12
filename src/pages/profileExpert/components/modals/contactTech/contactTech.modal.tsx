@@ -30,13 +30,13 @@ const formData: FormValues = {
 const OptionsServices: TypeListsSelect[] = [
     {
         _id: "1",
-        label: "Services 1",
-        value: "Services-1",
+        label: "Servicio 1",
+        value: "Servicio-1",
     },
     {
         _id: "2",
-        label: "Services 2",
-        value: "Services-2",
+        label: "Servicio 2",
+        value: "Servicio-2",
     },
 ];
 
@@ -56,17 +56,17 @@ export default function ContactTech({ showModal, onClose }: IProps) {
         <Modal
             show={showModal}
             onClose={onClose}
-            title="Contact with the technician"
-            labelButton="Send"
+            title="Contactar con el técnico"
+            labelButton="Enviar"
         >
             <span className="text-sm text-text-90 mb-4 block">
-                We&apos;ll send a message to Ignaz Semmelweis technician
+                Enviaremos un mensaje al técnico Ignaz Semmelweis
             </span>
             <Select
                 data={{
-                    label: "What service do you need?",
+                    label: "¿Qué servicio necesitas?",
                     name: "service",
-                    placeholder: "Select",
+                    placeholder: "Seleccionar",
                     value: service,
                     options: OptionsServices,
                     onSelect: handleValue,
@@ -75,10 +75,10 @@ export default function ContactTech({ showModal, onClose }: IProps) {
 
             <TextArea
                 data={{
-                    label: "Send a message",
+                    label: "Enviar un mensaje",
                     name: "message",
                     value: values.message,
-                    placeholder: "Send your message to the technician",
+                    placeholder: "Envía tu mensaje al técnico",
                     onChange: handleChangeTextArea,
                 }}
             />

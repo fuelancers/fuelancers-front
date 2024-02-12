@@ -42,7 +42,7 @@ export default function ImageUploader({ isMultiple = true }: IProps) {
                     isDragging,
                     dragProps,
                 }) => (
-                    // write your building UI
+                    // Escribe aquí tu interfaz de usuario
                     <div className="upload__image-wrapper">
                         <div
                             className="image-uploader"
@@ -54,14 +54,14 @@ export default function ImageUploader({ isMultiple = true }: IProps) {
                                 className="btn btn-extra"
                                 type="button"
                             >
-                                Upload photo
+                                Subir foto
                             </button>
                             <button
                                 type="button"
                                 className="drag-here text-center block text-sm"
                             >
-                                Or <br />
-                                drag and drop here
+                                O <br />
+                                arrastra y suelta aquí
                             </button>
                         </div>
 
@@ -70,7 +70,7 @@ export default function ImageUploader({ isMultiple = true }: IProps) {
                                 <div key={index} className="image-item shadow-square">
                                     <img
                                         src={image.data_url as string}
-                                        alt="Image"
+                                        alt="Imagen"
                                         width={100}
                                         height={100}
                                     />
@@ -82,7 +82,7 @@ export default function ImageUploader({ isMultiple = true }: IProps) {
                                             src="/assets/icons/close-white-icon.svg"
                                             width={13}
                                             height={13}
-                                            alt="Close icon"
+                                            alt="Icono de cerrar"
                                         />
                                     </button>
                                 </div>

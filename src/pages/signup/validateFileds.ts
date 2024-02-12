@@ -10,7 +10,7 @@ export const validateFields = <T>(
     if (!values.first_name.length) {
         setErrors((prev) => ({
             ...prev,
-            first_name: 'This field is required.',
+            first_name: 'Este campo es obligatorio.',
         }));
         error = true;
     } else {
@@ -23,7 +23,7 @@ export const validateFields = <T>(
     if (!values.last_name.length) {
         setErrors((prev) => ({
             ...prev,
-            last_name: 'This field is required.',
+            last_name: 'Este campo es obligatorio.',
         }));
         error = true;
     } else {
@@ -36,7 +36,7 @@ export const validateFields = <T>(
     if (!values.email.length) {
         setErrors((prev) => ({
             ...prev,
-            email: 'This field is required.',
+            email: 'Este campo es obligatorio.',
         }));
         error = true;
     } else if (
@@ -45,7 +45,7 @@ export const validateFields = <T>(
     ) {
         setErrors((prev) => ({
             ...prev,
-            email: 'Invalid email.',
+            email: 'Correo electrónico inválido.',
         }));
         error = true;
     } else {
@@ -58,13 +58,13 @@ export const validateFields = <T>(
     if (!values.password.length) {
         setErrors((prev) => ({
             ...prev,
-            password: 'This field is required.',
+            password: 'Este campo es obligatorio.',
         }));
         error = true;
     } else if (values.password.length > 0 && values.password.length < 7) {
         setErrors((prev) => ({
             ...prev,
-            password: 'Gotta be at least 8 characters',
+            password: 'Debe tener al menos 8 caracteres.',
         }));
         error = true;
     } else {
@@ -77,7 +77,7 @@ export const validateFields = <T>(
     if (values.repeat_password !== values.password) {
         setErrors((prev) => ({
             ...prev,
-            repeat_password: 'Passwords do not match',
+            repeat_password: 'Las contraseñas no coinciden.',
         }));
         error = true;
     }
@@ -86,7 +86,7 @@ export const validateFields = <T>(
         if (!values.phone_number.length) {
             setErrors((prev) => ({
                 ...prev,
-                phone_number: 'This field is required.',
+                phone_number: 'Este campo es obligatorio.',
             }));
             error = true;
         } else {

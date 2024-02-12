@@ -21,19 +21,19 @@ export default function Portfolio({ isOwner, data }: IProps) {
 
     const handleEdit = (id: string) => {
         setSearchParams({ [QuerysURL.id_portfolio]: id.toString() });
-        handleToggleModalWithLabel("modal_portfolio", "Edit Result", ActionModal.open, "Save")
+        handleToggleModalWithLabel("modal_portfolio", "Editar Resultado", ActionModal.open, "Guardar")
     }
     return (
         <Box
             data={{
-                label: "Portfolio",
+                label: "Portafolio",
                 id: "portfolio",
                 onClickEdit: () =>
                     handleToggleModalWithLabel(
                         "modal_portfolio",
-                        "Add Result",
+                        "Añadir Resultado",
                         ActionModal.open,
-                        "Save"
+                        "Guardar"
                     ),
             }}
             isOwner={isOwner}
@@ -61,7 +61,7 @@ export default function Portfolio({ isOwner, data }: IProps) {
                             </div>
                         </div>
                     )) : (
-                        <EmptyBox labelButton="Add Portfolio" onClick={() => handleToggleModalWithLabel("modal_portfolio", "Add Result", ActionModal.open, "Save")} />
+                        <EmptyBox labelButton="Añadir Portafolio" onClick={() => handleToggleModalWithLabel("modal_portfolio", "Añadir Resultado", ActionModal.open, "Guardar")} />
                     )
                 }
             </div>
