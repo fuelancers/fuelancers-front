@@ -24,7 +24,7 @@ export default function SignUp() {
 
   const { values, handleChangeInput, errors, setErrors } =
     useFormValues<DataSignUp>(new DataSignUp());
-  const [isFreelancer, setIsFreelancer] = useState<boolean>(false);
+  const [isFreelancer, setIsFreelancer] = useState<boolean>(true);
 
   const { callEndpoint, error } = useFetch();
 
