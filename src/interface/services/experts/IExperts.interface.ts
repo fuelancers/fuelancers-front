@@ -12,7 +12,7 @@ export interface Expert {
   skills: list[];
   languages: DataLanguage[];
   location: ExpertLocationResponse;
-  experience: IExpertExperience | null;
+  experience: number | null;
   workmode: IExpertWorkMode | null;
   degrees: IExpertDegree[];
   services: IExpertService[];
@@ -52,7 +52,7 @@ export interface User {
   status: IExpertStatus;
   skills: list[];
   languages: DataLanguage[];
-  experience: IExpertExperience | null;
+  experience: number | null;
   workmode: IExpertWorkMode | null;
   degrees: IExpertDegree[];
   services: IExpertService[];

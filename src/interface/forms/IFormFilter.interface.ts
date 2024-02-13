@@ -13,7 +13,7 @@ export class IFormFilter {
 
     public range_distance: string;
 
-    public experience: string;
+    public experience: number;
 
     public language: string[];
 
@@ -33,7 +33,7 @@ export class IFormFilter {
 
         this.range_distance = distance;
 
-        this.experience = "";
+        this.experience = 0;
 
         this.language = [];
 

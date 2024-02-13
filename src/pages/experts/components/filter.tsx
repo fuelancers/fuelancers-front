@@ -1,5 +1,5 @@
 // hooks
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 // components
 import RangeInput from "@/components/form/range/range.component";
@@ -11,6 +11,7 @@ import { IFormFilter } from "@/interface/forms/";
 import { TypeListDataFilter } from "@/interface/generics/";
 import { LoaderFilter } from "@/components/loaders/loaderFilter";
 import ButtonEdit from "@/components/common/buttons/buttonEdit/buttonEdit.common";
+import ExperienceRangeInput from "@/components/form/range/experienceRange/experienceRange.component";
 
 interface IProps {
   values: IFormFilter;
@@ -29,13 +30,23 @@ function Filter({
   showMap,
   data,
 }: IProps) {
+  const [experience, setExperience] = useState<number | null>(values?.experience || 0);
+  const [distance, setDistance] = useState<number | null>(Number(values?.range_distance || 0));
+
+  const handleChangeExperience = (e: React.FormEvent<HTMLInputElement>) => {
+    setExperience(parseInt(e.currentTarget.value));
+  }
+
+  const handleChangeDistance = (e: React.FormEvent<HTMLInputElement>) => {
+    setDistance(parseInt(e.currentTarget.value));
+  }
 
   return (
     <>
-    <div>
+      <div>
         <div className="flex items-start">
           <h5 className="font-bold text-sm md:text-base text-text-100 mb-4">
-            Distancia ({values?.range_distance}km)
+            Distancia ({distance}km)
           </h5>
           {showMap && (
             <button
@@ -57,21 +68,34 @@ function Filter({
           data={{
             min: 100,
             max: 700,
-            value: values?.range_distance,
+            value: `${distance}`,
             symbol: "km",
             name: "range_distance",
             symbolPosition: "right",
           }}
-          handleChange={handleChangeInput}
+          handleChange={handleChangeDistance}
+          onMouseUp={handleChangeInput}
         />
 
         <hr className="separator my-9" />
       </div>
       <div>
         <h5 className="font-bold text-sm md:text-base text-text-100 mb-4">
-          Experiencia
+          Experiencia ({experience} años{`${experience === 15 ? " o más" : ""}`})
         </h5>
-        {!!data?.list_experience?.length ? (
+        <ExperienceRangeInput
+          data={{
+            min: 0,
+            max: 15,
+            value: `${experience}`,
+            symbol: "años",
+            name: "experience",
+            symbolPosition: "right",
+          }}
+          handleChange={handleChangeExperience}
+          onMouseUp={handleChangeInput}
+        />
+        {/* {!!data?.list_experience?.length ? (
           data?.list_experience?.map((exp, i: number) => (
             <Radio
               key={exp._id}
@@ -86,12 +110,10 @@ function Filter({
           ))
         ) : (
           <LoaderFilter />
-        )}
+        )} */}
 
         <hr className="separator my-9   " />
       </div>
-
-      
 
       {/* <div>
                 <h5 className="font-bold text-sm md:text-base text-text-100 mb-4">Precio</h5>
@@ -110,7 +132,7 @@ function Filter({
                 <hr className="separator my-9" />
             </div> */}
 
-<div>
+      <div>
         <h5 className="font-bold text-sm md:text-base  text-text-100 mb-4">
           Habilidades
         </h5>

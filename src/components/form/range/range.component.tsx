@@ -11,10 +11,12 @@ interface IProps {
         name: string;
         symbolPosition: string;
     };
+    className?: string;
     handleChange: (e: React.FormEvent<HTMLInputElement>) => void;
+    onMouseUp: (e: React.FormEvent<HTMLInputElement>) => void;
 }
 
-export default function RangeInput({ data, handleChange }: IProps) {
+export default function RangeInput({ data, className, handleChange, onMouseUp }: IProps) {
     const rangeRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
@@ -26,7 +28,7 @@ export default function RangeInput({ data, handleChange }: IProps) {
     }, [rangeRef, data.value, data.min, data.max]);
 
     return (
-        <div className="flex flex-wrap gap-3">
+        <div className={`flex flex-wrap gap-3 ${className || ''}`}>
             <input
                 type="range"
                 className="slider w-full"
@@ -37,6 +39,7 @@ export default function RangeInput({ data, handleChange }: IProps) {
                 step="50"
                 value={data.value}
                 onChange={handleChange}
+                onMouseUp={onMouseUp}
                 ref={rangeRef}
             />
             <span className="min flex-1 text-sm">
