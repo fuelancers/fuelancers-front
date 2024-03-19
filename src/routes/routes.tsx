@@ -46,6 +46,13 @@ export const router = createBrowserRouter([
         },
       },
       {
+        path: routesWeb.contact,
+        lazy: async () => {
+          const module = await import("../pages/contact/page");
+          return { Component: module.default };
+        },
+      },
+      {
         path: routesWeb.signin,
         lazy: async () => {
           const module = await import("../pages/signin/page");

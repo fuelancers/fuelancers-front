@@ -12,16 +12,28 @@ import { useEffect } from 'react';
 interface MenuList {
     label: string;
     href: string;
-    icon: string;
+    icon?: string;
     id: number;
     private?: boolean;
 }
 
 const Links: MenuList[] = [
+    
     {
-        label: 'Buscar expertos',
+        label: 'Buscar Expertos',
         href: '/find-experts',
         icon: 'search-expert',
+        id: 9,
+    },
+    {
+        label: 'Buscar Clínicas',
+        href: '/',
+        icon: 'search-clinics',
+        id: 10,
+    },
+    {
+        label: 'Contacto',
+        href: '/contact',
         id: 11,
     },
     {

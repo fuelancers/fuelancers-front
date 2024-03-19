@@ -5,4 +5,5 @@ export const routesWeb = {
     find_experts: "/find-experts",
     expert: "/expert",
     profile: "/profile",
+    contact: "/contact",
 }

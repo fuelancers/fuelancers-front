@@ -12,19 +12,19 @@ function MenuDesktop({ links, isLogged, handleSignOut }: IProps) {
 
     return (
         <>
-            <ul className="hidden lg:flex gap-6 items-center">
+            <ul className="hidden lg:flex gap-8 items-center">
                 {links.map((item) => {
                     if (!isLogged && item.private) return null;
                     return (
                         <li key={item.id} className="text-white hover:opacity-70" >
-                            <span className="inline-block mr-2 align-middle">
+                            {item.icon && <span className="inline-block mr-2 align-middle">
                                 <img
                                     src={`/assets/icons/w-${item.icon}-icon.svg`}
                                     height={20}
                                     width={20}
                                     alt="Ícono de inicio de sesión"
                                 />
-                            </span>
+                            </span>}
                             <Link to={item.href}  className="text-[14px]">{item.label}</Link>
                         </li>
                     );
