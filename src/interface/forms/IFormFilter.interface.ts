@@ -27,6 +27,8 @@ export class IFormFilter {
 
     public location: TypeListsSelect | null;
 
+    public subcategories: string[];
+
 
     constructor(price: string, distance: string) {
         this.range_price = price;
@@ -45,6 +47,8 @@ export class IFormFilter {
 
         this.category = null;
 
-        this.location = null
+        this.location = null;
+
+        this.subcategories = [];
     }
 }

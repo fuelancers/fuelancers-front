@@ -12,6 +12,7 @@ interface IProps {
     onChange: (e: React.FormEvent<HTMLInputElement>) => void;
     inline?: boolean;
     icon?: string;
+    className?: string;
   };
   children?: React.ReactNode;
 }
@@ -27,6 +28,7 @@ export default function Input({ data, children }: IProps) {
     inline,
     icon,
     error,
+    className,
   } = data;
 
   const [changeType, setChangeInput] = useState<boolean>(false);
@@ -46,6 +48,8 @@ export default function Input({ data, children }: IProps) {
     <div
       className={`content-input flex flex-col gap-2 w-full  ${
         inline ? "mb-4" : "mb-6"
+      } ${
+        className || ""
       }`}
     >
       <label

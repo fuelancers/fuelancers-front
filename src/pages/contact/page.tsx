@@ -19,7 +19,7 @@ const ContactPage = () => {
 
   return (
     <main className="bg-white-bg min-h-screen pb-8 lg:pt-6">
-      <section className="content-sections mt-12 md:px-8 lg:gap-8">
+      <section className="content-sections pt-12 px-8 md:px-8 lg:gap-8">
         <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">
           Contact Us
         </h2>
@@ -28,10 +28,10 @@ const ContactPage = () => {
           Need details about our Business plan? Let us know.
         </p>
       </section>
-      <section className="flex content-sections mt-12 md:px-8 lg:gap-8">
-        <div className="content-box px-8 py-14 w-full">
-          <form action="">
-            <div className="flex px-6">
+      <section className="flex flex-wrap content-sections gap-4 mt-12 px-4 md:px-8 lg:gap-8">
+        <div className="content-box px-4 py-14 flex-1 lg:px-8">
+          <form action="" className="max-w-full">
+            <div className="flex px-2 sm:px-3 md:px-4">
               <Input
                 data={{
                   label: "Nombre",
@@ -51,7 +51,7 @@ const ContactPage = () => {
                 }}
               />
             </div>
-            <div className="flex px-6">
+            <div className="flex px-2 sm:px-3 md:px-4">
               <Input
                 data={{
                   label: "Email",
@@ -85,7 +85,7 @@ const ContactPage = () => {
             <Button data={{ label: "Enviar mensaje" }} />
           </form>
         </div>
-        <div className="flex flex-col content-box px-8 py-14 max-w-xs min-w-[288px] gap-14">
+        <div className="flex flex-col content-box px-8 py-14 min-w-[288px] gap-14 my-8 lg:max-w-xs lg:my-0">
           <div className="">
             <div className="flex bg-[#F3F4F6] rounded-md mx-auto w-fit h-fit p-3 justify-center items-center mb-6">
               <TiLocation size="28" color="rgb(75, 85, 99)" />

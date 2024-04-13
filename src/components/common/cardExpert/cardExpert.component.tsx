@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { list } from "@/interface/services/experts/IExperts.interface";
 
 import "./cardExpert.scss";
+import { MultiValue } from "react-select";
+import { TypeListsSelect } from "@/interface/generics";
 
 interface IProps {
   data: {
@@ -14,11 +16,12 @@ interface IProps {
     status: { status: list } | undefined;
     id: string;
     location?: string;
+    subcategories: any[];
   };
 }
 
 export default function CardExpert({ data }: IProps) {
-  const { name, title, picture, description, price, location, skills, status, id } =
+  const { name, title, picture, description, price, location, skills, status, id, subcategories } =
     data;
   const formatter = new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -109,12 +112,12 @@ export default function CardExpert({ data }: IProps) {
           </div>
 
           <div className="categories mt-6 flex gap-2">
-            {skills?.map((skill) => (
+            {subcategories?.map((subcategory) => (
               <span
-                key={skill.name}
+                key={subcategory._id}
                 className="rounded-sm bg-text-40 text-text-80 text-xs block px-4 py-1 w-fit "
               >
-                {skill.name}
+                {subcategory.name.charAt(0).toUpperCase()}{subcategory.name.slice(1)}
               </span>
             ))}
           </div>

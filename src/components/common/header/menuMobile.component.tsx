@@ -33,21 +33,21 @@ function MenuMobile({ links, isLogged }: IProps) {
                                     onClick={handleCloseNav}
                                 >
                                     <Link to={item.href}>
-                                        <span className=" inline-block mr-3 align-middle">
-                                            <img
+                                        {/* <span className=" inline-block mr-3 align-middle">
+                                        {item.icon ? <img
                                                 src={`/assets/icons/${item.icon}-icon.svg`}
                                                 height={24}
                                                 width={24}
                                                 alt="Ícono de inicio de sesión"
-                                            />
-                                        </span>
+                                            /> : <div className="w-[24px] h-[24px]"></div>}
+                                        </span> */}
                                         {item.label}
                                     </Link>
                                 </li>
                             );
                         })}
                     </ul>
-                    <div className="mt-10">
+                    <div className="mt-auto">
                         {!isLogged ? (
                             <Link
                                 to="/signin"

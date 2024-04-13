@@ -1,7 +1,7 @@
 /* eslint-disable prefer-const */
 /* eslint-disable react-hooks/exhaustive-deps */
 // hooks
-import { useEffect, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLoaderData, useParams } from "react-router-dom";
 // components
@@ -34,6 +34,13 @@ import UpsertResults from "./components/sections/portfolio/portfolio.modal";
 import UpsertService from "./components/sections/services/services.modal";
 import { updateExpert } from "@/storage/slice/expert.slice";
 import EmptyBox from "@/components/common/emptyBox/emptyBox";
+import { SubcategoryLists } from "@/interface/generics/ISubcategories.interface";
+
+export interface CategoriesMapped {
+  _id: string;
+  name: string;
+  subcategories: SubcategoryLists[];
+}
 
 export default function ProfileExpert() {
   const data = useLoaderData();
@@ -56,6 +63,27 @@ export default function ProfileExpert() {
       setIsOwner(id === user._id);
     }
   }, []);
+
+  const categoriesMapped = useMemo(() => {
+    if (!expert?.subcategories?.length) return [];
+    return expert.subcategories.reduce((categoriesToReturn, subcategory) => {
+      const categoryIndex = categoriesToReturn.findIndex(
+        (c) => c._id === subcategory.category._id
+      );
+      if (categoryIndex !== -1) {
+        categoriesToReturn[categoryIndex].subcategories.push(subcategory);
+      } else {
+        categoriesToReturn.push({
+          _id: subcategory.category._id,
+          name: subcategory.category.name,
+          subcategories: [subcategory],
+        });
+      }
+      return categoriesToReturn;
+    }, [] as CategoriesMapped[]);
+  }, [expert]);
+
+  console.log(categoriesMapped);
 
   if (!expert) {
     return <Loader loading={true} />;
@@ -117,13 +145,16 @@ export default function ProfileExpert() {
                     label=""
                   />
                 )}
-                <span className="text-text-90"> {expert?.location?.name || ''}</span>
+                <span className="text-text-90">
+                  {" "}
+                  {expert?.location?.name || ""}
+                </span>
               </div>
               <hr className="border-text-50 mt-3 mb-6" />
             </div>
             {/* TODO: preferred working */}
 
-            <div className="label mb-10">
+            {/* <div className="label mb-10">
               <h5 className="font-bold text-text-100 md:text-lg mb-4">
                 Modo de trabajo
               </h5>
@@ -143,10 +174,10 @@ export default function ProfileExpert() {
                 )}
               </div>
               <hr className="border-text-50 mt-3 mb-6" />
-            </div>
+            </div> */}
 
             {/* TODO: languajes */}
-            <div className="label mb-10">
+            {/* <div className="label mb-10">
               <h5 className="font-bold text-text-100 md:text-lg mb-4">
                 Idiomas
               </h5>
@@ -176,7 +207,7 @@ export default function ProfileExpert() {
                 )}
               </div>
               <hr className="border-text-50 mt-3 mb-6" />
-            </div>
+            </div> */}
             {/* TODO: social media */}
             <div className="label mb-10">
               <h5 className="font-bold text-text-100 md:text-lg mb-4">
@@ -220,7 +251,7 @@ export default function ProfileExpert() {
               edit={false}
             >
               {!!expert.profileInfo?.description ? (
-                <p className="text-sm text-text-90 text-justify">
+                <p className="text-sm text-text-90 text-justify mb-8">
                   {expert.profileInfo?.description}
                 </p>
               ) : (
@@ -231,16 +262,46 @@ export default function ProfileExpert() {
                   }
                 />
               )}
+              
             </Box>
+
+            <Box
+              data={{
+                label: "Habilidades",
+                id: "habilities",
+              }}
+              edit={false}
+            >
+               {categoriesMapped.map((category) => (
+              <div key={category._id} className="my-5">
+                <h4 className="label font-bold text-sm text-text-100 mb-2">
+                  {category?.name.charAt(0).toUpperCase()}
+                  {category?.name.slice(1)}
+                </h4>
+                <div className="categories mt-3 flex gap-2">
+                {category?.subcategories.map((subcategory) => (
+                  <span
+                  key={subcategory._id}
+                  className="rounded-sm bg-text-40 text-text-80 text-xs block px-4 py-1 w-fit "
+                >
+                  {subcategory.name.charAt(0).toUpperCase()}{subcategory.name.slice(1)}
+                </span>
+                ))}
+                </div>
+              </div>
+            ))}
+            </Box>
+           
+{/* 
             {!isOwner && !expert.degrees.length ? null : (
               <Degree isOwner={isOwner} data={expert.degrees} />
             )}
 
             {!isOwner && !expert.services.length ? null : (
               <Services isOwner={isOwner} data={expert.services} />
-            )}
+            )} */}
 
-            {general.device <= 1024 ? <Languages isOwner={isOwner} /> : null}
+            {/* {general.device <= 1024 ? <Languages isOwner={isOwner} /> : null} */}
 
             {!isOwner && !expert.services.length ? null : (
               <Portfolio isOwner={isOwner} data={expert.portfolios} />
@@ -260,6 +321,7 @@ export default function ProfileExpert() {
             experience: expert.experience,
             workmode: expert.workmode,
             skills: expert.skills,
+            subcategories: expert.subcategories,
             token: user.token,
           }}
           idExpert={expert._id}

@@ -105,21 +105,27 @@ export default function Experts() {
         existFilter = true;
       }
 
-      if (!!values.language?.length) {
-        const val = values.language.join("-");
-        url = `${url}${existFilter ? "&" : "?"}language_id=${val}`;
-        existFilter = true;
-      }
+      // if (!!values.language?.length) {
+      //   const val = values.language.join("-");
+      //   url = `${url}${existFilter ? "&" : "?"}language_id=${val}`;
+      //   existFilter = true;
+      // }
 
-      if (!!values.work_mode?.length) {
-        const val = values.work_mode.join("-");
-        url = `${url}${existFilter ? "&" : "?"}work_mode_id=${val}`;
-        existFilter = true;
-      }
+      // if (!!values.work_mode?.length) {
+      //   const val = values.work_mode.join("-");
+      //   url = `${url}${existFilter ? "&" : "?"}work_mode_id=${val}`;
+      //   existFilter = true;
+      // }
 
-      if (!!values.skill) {
-        const val = values.skill.join("-");
-        url = `${url}${existFilter ? "&" : "?"}skill_id=${val}`;
+      // if (!!values.skill) {
+      //   const val = values.skill.join("-");
+      //   url = `${url}${existFilter ? "&" : "?"}skill_id=${val}`;
+      //   existFilter = true;
+      // }
+
+      if (!!values.subcategories?.length) {
+        const val = values.subcategories.join("-");
+        url = `${url}${existFilter ? "&" : "?"}subcategories_id=${val}`;
         existFilter = true;
       }
 
@@ -181,6 +187,7 @@ export default function Experts() {
     values.skill,
     values.range_distance,
     location,
+    values.subcategories,
   ]);
 
   const handleChangeFilter = () =>
@@ -366,6 +373,7 @@ export default function Experts() {
                       picture: expert.picture,
                       price: 50,
                       location: expert?.location?.name || "",
+                      subcategories: expert.subcategories as unknown[],
                       skills: expert.skills,
                       status: expert.status,
                       id: expert._id.toString(),
@@ -402,7 +410,7 @@ export default function Experts() {
             handleChangeRadio={handleChangeRadio}
           />
 
-          <Button data={{ label: "Aplicar", onClick: handleCloseFilter }} />
+          {/* <Button data={{ label: "Aplicar", onClick: handleCloseFilter }} /> */}
         </Sidebar>
       ) : null}
     </main>

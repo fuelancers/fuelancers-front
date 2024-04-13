@@ -28,7 +28,7 @@ export default function Sidebar({ onClose, children, label }: IProps) {
                 className="content-nav w-4/5 max-w-xs h-full absolute z-40 right-0 top-0 bg-white px-4 py-6"
                 id="content-nav"
             >
-                <div className="label mb-6">
+                <div className="label mb-6 mt-4">
                     <h5 className="font-bold text-text-100 md:text-lg">{label}</h5>
                     <hr className="border-text-50 mt-2" />
                 </div>

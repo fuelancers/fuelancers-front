@@ -12,6 +12,11 @@ import { TypeListDataFilter } from "@/interface/generics/";
 import { LoaderFilter } from "@/components/loaders/loaderFilter";
 import ButtonEdit from "@/components/common/buttons/buttonEdit/buttonEdit.common";
 import ExperienceRangeInput from "@/components/form/range/experienceRange/experienceRange.component";
+import { useFetch } from "@/hooks/services/useFetch";
+import { CategoryLists } from "@/interface/generics/ISubcategories.interface";
+import { IResponse } from "@/interface/services";
+import { getListService } from "@/services/generic/getLists.service";
+import { genericsRoutes } from "@/core/routesServices";
 
 interface IProps {
   values: IFormFilter;
@@ -30,9 +35,12 @@ function Filter({
   showMap,
   data,
 }: IProps) {
+  const { callEndpoint, error } = useFetch();
   const [experience, setExperience] = useState<number | null>(values?.experience || 0);
   const [distance, setDistance] = useState<number | null>(Number(values?.range_distance || 0));
-
+  const [listSubcategories, setListSubcategories] = useState<CategoryLists[]>(
+    []
+  );
   const handleChangeExperience = (e: React.FormEvent<HTMLInputElement>) => {
     setExperience(parseInt(e.currentTarget.value));
   }
@@ -40,6 +48,18 @@ function Filter({
   const handleChangeDistance = (e: React.FormEvent<HTMLInputElement>) => {
     setDistance(parseInt(e.currentTarget.value));
   }
+
+  useEffect(() => {
+    if (!listSubcategories.length) {
+      callEndpoint<IResponse<CategoryLists[]>>(
+        getListService(genericsRoutes.list_subcategories)
+      )
+        .then(({ response }) => {
+          if (response?.data) setListSubcategories(response.data);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [])
 
   return (
     <>
@@ -132,7 +152,7 @@ function Filter({
                 <hr className="separator my-9" />
             </div> */}
 
-      <div>
+      {/* <div>
         <h5 className="font-bold text-sm md:text-base  text-text-100 mb-4">
           Habilidades
         </h5>
@@ -154,9 +174,34 @@ function Filter({
         )}
 
         <hr className="separator my-9   " />
-      </div>
+      </div> */}
 
-      <div>
+      {listSubcategories?.map((category) => {
+        if (!category?.name || !category?.subcategories?.length) return null;
+        return (
+        <div>
+        <h5 className="font-bold text-sm md:text-base  text-text-100 mb-4">
+          {category?.name?.charAt(0).toUpperCase()}{category?.name?.slice(1)}
+        </h5>
+        {category?.subcategories?.map((subcategory, i: number) => (
+            <Checkbox
+              key={subcategory._id}
+              data={{
+                checked: values.subcategories?.includes(subcategory._id),
+                name: subcategory.name,
+                label: subcategory.name,
+                id: subcategory._id,
+              }}
+              handleChange={() => handleChangeCheckbox("subcategories", subcategory._id)}
+            />
+          ))}
+        
+
+        <hr className="separator my-9   " />
+      </div>
+      )})}
+
+      {/* <div>
         <h5 className="font-bold text-sm md:text-base  text-text-100 mb-4">
           Idioma
         </h5>
@@ -178,9 +223,9 @@ function Filter({
         )}
 
         <hr className="separator my-9   " />
-      </div>
+      </div> */}
 
-      <div>
+      {/* <div>
         <h5 className="font-bold text-sm md:text-base  text-text-100 mb-4">
           Modo de trabajo
         </h5>
@@ -202,7 +247,7 @@ function Filter({
         )}
 
         <hr className="separator my-9   " />
-      </div>
+      </div> */}
     </>
   );
 }

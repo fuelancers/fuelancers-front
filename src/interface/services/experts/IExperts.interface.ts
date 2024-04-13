@@ -1,4 +1,6 @@
-import { TypeLists } from "@/interface/generics";
+import { TypeLists, TypeListsSelect } from "@/interface/generics";
+import { CategoryLists, SubcategoryLists } from "@/interface/generics/ISubcategories.interface";
+import { MultiValue } from "react-select";
 
 export interface Expert {
   _id: string;
@@ -17,6 +19,7 @@ export interface Expert {
   degrees: IExpertDegree[];
   services: IExpertService[];
   portfolios: { portfolio: IExpertPortfolio; createdAt: string }[];
+  subcategories: SubcategoryLists[];
 }
 
 export interface PersonalInfo {

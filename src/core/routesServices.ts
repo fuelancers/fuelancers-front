@@ -17,6 +17,7 @@ export const genericsRoutes = {
     list_workmode: '/generics/work-mode',
     list_skills: '/generics/skill',
     list_status: '/generics/status',
+    list_subcategories: '/generics/sub-categories',
 };
 
 export const experts = {
@@ -31,4 +32,5 @@ export const experts = {
     experts_portfolio: "/profile/portfolio",
     experts_location: "/profile/location",
     experts_skills: "/profile/skills",
+    experts_subcategories: "/profile/sub-categories",
 };
