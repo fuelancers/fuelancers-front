@@ -22,6 +22,7 @@ export const genericsRoutes = {
 
 export const experts = {
     list_experts: '/experts',
+    list_clinics: '/experts?role=clinic',
     edit_personal_info: '/profile/personal-info',
     experts_languages: "/profile/languages",
     experts_degrees: "/profile/degrees",

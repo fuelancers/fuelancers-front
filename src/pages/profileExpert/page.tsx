@@ -83,7 +83,6 @@ export default function ProfileExpert() {
     }, [] as CategoriesMapped[]);
   }, [expert]);
 
-  console.log(categoriesMapped);
 
   if (!expert) {
     return <Loader loading={true} />;
@@ -250,9 +249,9 @@ export default function ProfileExpert() {
               }}
               edit={false}
             >
-              {!!expert.profileInfo?.description ? (
+              {!!expert.profileInfo?.description || !isOwner? (
                 <p className="text-sm text-text-90 text-justify mb-8">
-                  {expert.profileInfo?.description}
+                  {expert.profileInfo?.description || ''}
                 </p>
               ) : (
                 <EmptyBox

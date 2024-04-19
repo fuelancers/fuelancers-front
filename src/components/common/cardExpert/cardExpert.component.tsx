@@ -38,7 +38,7 @@ export default function CardExpert({ data }: IProps) {
               width={300}
               height={300}
               alt="Photo"
-              className="object-cover object-center h-full w-full rounded-t-lg"
+              className="object-contain object-center h-full w-full rounded-t-lg"
             />
 
             <div className="overlay-gradient absolute inset-0 w-full h-full"></div>

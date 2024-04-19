@@ -6,6 +6,7 @@ import { getExpertsServices } from "@/services/pages/getExperts.service";
 import { getExpertData } from "@/services/pages/getExpertData.service";
 import { routesWeb } from "@/core/routesWeb";
 import { useEffect } from "react";
+import { getClinicsService } from "@/services/pages/getClinics.service";
 
 export const router = createBrowserRouter([
   {
@@ -42,6 +43,17 @@ export const router = createBrowserRouter([
         },
         lazy: async () => {
           const module = await import("../pages/profileExpert/page");
+          return { Component: module.default };
+        },
+      },
+      {
+        path: routesWeb.find_clinics,
+        loader: async ({ request, params }) => {
+          const response = await getClinicsService();
+          return response;
+        },
+        lazy: async () => {
+          const module = await import("../pages/clinics/page");
           return { Component: module.default };
         },
       },

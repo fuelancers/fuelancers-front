@@ -27,7 +27,7 @@ const Links: MenuList[] = [
     },
     {
         label: 'Buscar Clínicas',
-        href: '/',
+        href: '/find-clinics',
         icon: 'search-clinics',
         id: 10,
     },

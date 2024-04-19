@@ -103,7 +103,7 @@ export default function ProfileHeader({ data, children }: IProps) {
                                 width={244}
                                 height={244}
                                 alt="Foto"
-                                className="object-cover object-center h-full"
+                                className="object-contain object-center h-full"
                             />
                         </div>
                         {
