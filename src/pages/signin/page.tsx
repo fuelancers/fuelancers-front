@@ -44,6 +44,8 @@ export default function SignIn() {
             );
             if (!result?.response?.access_token) return;
 
+            console.log(result?.response?.access_token)
+
             const { response: userMe } = await callEndpoint<IResponse<IUser>>(
                 UserMeService(users.me, result?.response?.access_token as string)
             )

@@ -1,11 +1,12 @@
 import { TypeListsSelect } from "../generics";
 
 export enum EnumFilter {
-    experience = 'Experience',
+    experience = 'Experiencia',
     language = 'Language',
     work_mode = 'Work mode',
-    distance = 'Distance',
+    distance = 'Distancia',
     skill = 'Skill',
+    pricebyDay = 'Precio por día',
 }
 
 export class IFormFilter {
@@ -29,6 +30,8 @@ export class IFormFilter {
 
     public subcategories: string[];
 
+    public priceByDay: number;
+
 
     constructor(price: string, distance: string) {
         this.range_price = price;
@@ -50,5 +53,7 @@ export class IFormFilter {
         this.location = null;
 
         this.subcategories = [];
+
+        this.priceByDay = 125;
     }
 }

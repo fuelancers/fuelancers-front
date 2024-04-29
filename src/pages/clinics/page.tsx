@@ -377,6 +377,7 @@ export default function Experts() {
                       skills: expert.skills,
                       status: expert.status,
                       id: expert._id.toString(),
+                      priceByDay: expert.priceByDay,
                     }}
                   />
                 ))

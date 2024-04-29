@@ -27,6 +27,7 @@ import { useUpdateExpert } from "@/hooks/services/useUpdateExpert";
 import CustomMultiSelect from "@/components/form/multiSelect/select.component";
 import ExperienceRangeInput from "@/components/form/range/experienceRange/experienceRange.component";
 import { CategoryLists, SubcategoryLists } from "@/interface/generics/ISubcategories.interface";
+import PriceByDayRangeInput from "@/components/form/range/priceByDayRange/priceByDayRange.component";
 
 interface IProps {
   showModal: boolean;
@@ -39,6 +40,7 @@ interface IProps {
     token: string | null;
     skills: TypeLists[];
     subcategories: SubcategoryLists[];
+    priceByDay: number;
   };
   idExpert: string;
 }
@@ -74,6 +76,7 @@ export default function EditProfile({
   //   useState<SingleValue<TypeListsSelect>>(defaultValueList);
   // const [skills, setSkills] = useState<MultiValue<TypeListsSelect>>([]);
   const [experience, setExperience] = useState<number>(0);
+  const [priceByDay, setPriceByDay] = useState<number>(125);
   const [subcategories, setSubcategories] = useState<
   SubcategoryLists[]
   >([]);
@@ -103,6 +106,11 @@ export default function EditProfile({
     if (data.subcategories?.length) {
       //   const list = FormatSingleListToSelect(data.experience);
       setSubcategories(data.subcategories);
+    }
+
+    if (typeof data.priceByDay === "number") {
+      //   const list = FormatSingleListToSelect(data.experience);
+      setPriceByDay(data.priceByDay);
     }
     // NOTA: MODO DE TRABAJO
     // if (!!data.workmode?.workmode) {
@@ -207,8 +215,33 @@ export default function EditProfile({
     );
     await updateExpertService();
   };
-  console.log({data})
 
+  const handleChangePriceByDay = async (
+    e: React.FormEvent<HTMLInputElement>
+  ) => {
+    const price = Number((e.target as HTMLInputElement).value);
+    setPriceByDay(price);
+  };
+
+  // const handleMouseUpPriceByDay = async (
+  //   e: React.FormEvent<HTMLInputElement>
+  // ) => {
+  //   const price = Number((e.target as HTMLInputElement).value);
+  //   if (priceByDayDebounce.current) clearTimeout(priceByDayDebounce.current);
+
+  //   const parseData = {
+  //     price,
+  //     id_exp: idExpert,
+  //   };
+  //   await callEndpoint(
+  //     ExpertsServiceUpdate(
+  //       parseData,
+  //       `${experts.experts_experience}`,
+  //       data.token
+  //     )
+  //   );
+  //   await updateExpertService();
+  // };
   // NOTA: ACTUALIZAR MODO DE TRABAJO DEL EXPERTO
   // const handleChangeWorkMode = async (option: SingleValue<TypeListsSelect>) => {
   //   const parseData = {
@@ -259,6 +292,7 @@ export default function EditProfile({
       title: values.title,
       description: values.description,
       subcategories: subcategories.map(sc => sc._id),
+      priceByDay,
     };
 
     await callEndpoint<IResponse<string>>(
@@ -341,6 +375,35 @@ export default function EditProfile({
           onSelect: handleChangeSkills,
         }}
       /> */}
+
+      <h4 className="label font-bold text-sm text-text-100 mb-4">
+        Precio por día ({priceByDay} €)
+      </h4>
+
+      {/* <Select
+        data={{
+          label: "Selecciona tu tiempo de experiencia",
+          name: "experience",
+          placeholder: "Experiencia",
+          options: listExperience,
+          value: experience,
+          onSelect: handleChangeExperience,
+        }}
+      /> */}
+
+      <PriceByDayRangeInput
+        data={{
+          min: 125,
+          max: 500,
+          value: `${priceByDay}`,
+          symbol: "€",
+          name: "priceByDay",
+          symbolPosition: "right",
+        }}
+        className="px-6 mb-6"
+        handleChange={handleChangePriceByDay}
+        // onMouseUp={handleMouseUpPriceByDay}
+      />
 
       {listSubcategories?.map((category) => (
         <Fragment key={`category-${category._id}`}>

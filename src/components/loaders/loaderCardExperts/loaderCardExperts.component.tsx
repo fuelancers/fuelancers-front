@@ -13,7 +13,7 @@ export default function CardExpert() {
         </div>
       </div>
       <div className="info  p-4 pb-6 relative">
-        <div className="price-day rounded-xl bg-white shadow-strong w-fit absolute right-4 -top-4">
+        <div className="price-day rounded-xl bg-white shadow-strong w-fit absolute left-4 -top-4">
           <div className="animated-background py-3 w-32 rounded-xl">
             <div className="background-masker"></div>
           </div>

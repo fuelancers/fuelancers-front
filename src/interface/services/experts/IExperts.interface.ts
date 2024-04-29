@@ -20,6 +20,7 @@ export interface Expert {
   services: IExpertService[];
   portfolios: { portfolio: IExpertPortfolio; createdAt: string }[];
   subcategories: SubcategoryLists[];
+  priceByDay: number;
 }
 
 export interface PersonalInfo {

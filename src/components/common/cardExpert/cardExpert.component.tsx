@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { list } from "@/interface/services/experts/IExperts.interface";
+import { LuMapPin } from "react-icons/lu";
 
 import "./cardExpert.scss";
 import { MultiValue } from "react-select";
@@ -17,11 +18,12 @@ interface IProps {
     id: string;
     location?: string;
     subcategories: any[];
+    priceByDay: number | undefined;
   };
 }
 
 export default function CardExpert({ data }: IProps) {
-  const { name, title, picture, description, price, location, skills, status, id, subcategories } =
+  const { name, title, picture, description, price, location, skills, status, id, subcategories, priceByDay } =
     data;
   const formatter = new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -29,7 +31,7 @@ export default function CardExpert({ data }: IProps) {
   });
 
   return (
-    <article className="rounded-lg bg-white w-full max-w-[300px] lg:max-w-[280px]  border-text-30 border-2 hover:shadow-cards transition">
+    <article className="rounded-lg bg-white w-full max-w-[300px] lg:max-w-[280px] border-text-30 border-2 hover:shadow-cards transition">
       <Link to={`/expert/${id}`} className="cursor-default lg:cursor-pointer">
         <div className="top w-full  h-64">
           <div className="image w-full  h-full bg-white rounded-lg relative">
@@ -61,24 +63,25 @@ export default function CardExpert({ data }: IProps) {
               </div>
             ) : null}
 
-            <div className="z-10 absolute bottom-4 left-4 ">
-              <h4 className="font-bold  text-white text-2xl mb-2 capitalize">{name}</h4>
-              <span className="text-text-30 text-sm flex gap-2">
-                <img
+            <div className="z-10 absolute bottom-6 left-4 ">
+              <h4 className="font-bold  text-white text-2xl mb-0 capitalize">{name}</h4>
+              <span className="text-text-30 text-sm flex gap-1 font-semibold">
+                {/* <img
                   src="/assets/icons/pin-white-icon.png"
                   width={14}
                   height={14}
                   alt="Pin"
-                />
+                /> */}
+                <LuMapPin color="white" width={14} height={14}/>
                 Ubicado en {location}
               </span>
             </div>
           </div>
         </div>
         <div className="info  p-4 pb-6 relative">
-          <div className="price-day rounded-xl bg-white shadow-strong w-fit absolute right-4 -top-4">
-            <span className="block text-center text-text-100 text-xs px-5 py-1">
-              225€/día
+          <div className="price-day rounded-xl bg-white shadow-strong w-fit absolute left-4 -top-4">
+            <span className="block text-center text-text-100 text-xs px-3 py-1 font-semibold">
+              <span className="font-bold text-xs">{priceByDay || 125} €</span>/por día
             </span>
           </div>
           <div className="data relative">

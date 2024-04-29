@@ -92,6 +92,7 @@ export default function Experts() {
     check(EnumFilter.work_mode, values.work_mode);
     check(EnumFilter.distance, values.range_distance);
     check(EnumFilter.skill, values.skill);
+    check(EnumFilter.pricebyDay, values.priceByDay);
   };
 
   const filterList = () => {
@@ -99,9 +100,11 @@ export default function Experts() {
       let url = experts.list_experts;
       let existFilter = false;
       if (!!values.experience) {
-        url = `${url}${existFilter ? "&" : "?"}experience=${
-          values.experience
-        }`;
+        url = `${url}${existFilter ? "&" : "?"}experience=${values.experience}`;
+        existFilter = true;
+      }
+      if (["string", "number"].includes(typeof values.priceByDay)) {
+        url = `${url}${existFilter ? "&" : "?"}priceByDay=${values.priceByDay}`;
         existFilter = true;
       }
 
@@ -188,6 +191,7 @@ export default function Experts() {
     values.range_distance,
     location,
     values.subcategories,
+    values.priceByDay,
   ]);
 
   const handleChangeFilter = () =>
@@ -309,15 +313,21 @@ export default function Experts() {
                     <span className="block text-center text-text-80 text-sm  font-bold">
                       {value}
                     </span>
-                    {value !== EnumFilter.distance && value !== EnumFilter.experience && <button onClick={() => handleDeleteFilter(value)}>
-                      <img
-                        src="/assets/icons/close-icon.svg"
-                        width={15}
-                        height={15}
-                        alt="delete icon"
-                        className="object-cover object-center h-full w-full o"
-                      />
-                    </button>}
+                    {![
+                      EnumFilter.distance,
+                      EnumFilter.experience,
+                      EnumFilter.pricebyDay,
+                    ].includes(value) && (
+                      <button onClick={() => handleDeleteFilter(value)}>
+                        <img
+                          src="/assets/icons/close-icon.svg"
+                          width={15}
+                          height={15}
+                          alt="delete icon"
+                          className="object-cover object-center h-full w-full o"
+                        />
+                      </button>
+                    )}
                   </div>
                 ))}
               </div>
@@ -377,6 +387,7 @@ export default function Experts() {
                       skills: expert.skills,
                       status: expert.status,
                       id: expert._id.toString(),
+                      priceByDay: expert.priceByDay,
                     }}
                   />
                 ))

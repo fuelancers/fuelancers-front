@@ -151,6 +151,7 @@ export default function ProfileExpert() {
               </div>
               <hr className="border-text-50 mt-3 mb-6" />
             </div>
+            
             {/* TODO: preferred working */}
 
             {/* <div className="label mb-10">
@@ -250,9 +251,24 @@ export default function ProfileExpert() {
               edit={false}
             >
               {!!expert.profileInfo?.description || !isOwner ? (
+                <>
                 <p className="text-sm text-text-90 text-justify mb-8">
                   {expert.profileInfo?.description || ''}
                 </p>
+                <div className="my-5">
+                <h4 className="label font-bold text-sm text-text-100 mb-2">
+                  Precio por día
+                </h4>
+                <div className="categories mt-3 flex gap-2">
+                  <span
+                  className="rounded-sm bg-text-40 text-text-80 text-xs block px-4 py-1 w-fit "
+                >
+                  {expert.priceByDay || 125} €
+                </span>
+                </div>
+                </div>
+                </>
+
               ) : (
                 <EmptyBox
                   labelButton="Editar descripción"
@@ -322,6 +338,7 @@ export default function ProfileExpert() {
             skills: expert.skills,
             subcategories: expert.subcategories,
             token: user.token,
+            priceByDay: expert.priceByDay,
           }}
           idExpert={expert._id}
         />
