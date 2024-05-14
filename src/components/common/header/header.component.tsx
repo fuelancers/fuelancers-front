@@ -38,7 +38,7 @@ const Links: MenuList[] = [
     },
     {
         label: 'Mi perfil',
-        href: '/profile',
+        href: '/expert',
         icon: 'profile',
         private: true,
         id: 12,

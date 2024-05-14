@@ -21,7 +21,7 @@ import Portfolio from "./components/sections/portfolio/portfolio.section";
 import Location from "./components/sections/location/location.section";
 import ContactTech from "./components/modals/contactTech/contactTech.modal";
 // interface
-import { ActionModal } from "@/interface/enums/";
+import { ActionModal, Role, ValidationForm } from "@/interface/enums/";
 import { AppStore } from "@/storage/store";
 
 // utils
@@ -35,6 +35,9 @@ import UpsertService from "./components/sections/services/services.modal";
 import { updateExpert } from "@/storage/slice/expert.slice";
 import EmptyBox from "@/components/common/emptyBox/emptyBox";
 import { SubcategoryLists } from "@/interface/generics/ISubcategories.interface";
+import Input from "@/components/form/input/input.component";
+import { useFormValues } from "@/hooks/form/useFormValues";
+import { DataProfileUser } from "@/interface/forms";
 
 export interface CategoriesMapped {
   _id: string;
@@ -45,6 +48,8 @@ export interface CategoriesMapped {
 export default function ProfileExpert() {
   const data = useLoaderData();
   const { id } = useParams();
+  const { values, setValues, errors, handleChangeInput, handleChangeTextArea } =
+    useFormValues<DataProfileUser>(new DataProfileUser());
 
   const dispatch = useDispatch();
   const { handleToggleModal, handleToggleModalWithLabel } = useModal();
@@ -83,7 +88,6 @@ export default function ProfileExpert() {
     }, [] as CategoriesMapped[]);
   }, [expert]);
 
-
   if (!expert) {
     return <Loader loading={true} />;
   } else {
@@ -96,16 +100,27 @@ export default function ProfileExpert() {
             isOwner: isOwner,
           }}
         >
-          <div className="relative">
+          <div className="flex justify-end">
             {isOwner ? (
-              <div className="edit ml-auto w-fit right-4 md:right-8 -top-24 md:top-2 absolute">
-                <ButtonEdit
-                  onClick={() =>
-                    handleToggleModal("modal_profile", ActionModal.open)
-                  }
-                />
-              </div>
-            ) : null}
+              <Button
+                data={{
+                  label: "Editar perfil",
+                  customStyles: "btn-primary my-2 mx-0",
+                  onClick: () =>
+                    handleToggleModal("modal_profile", ActionModal.open),
+                }}
+              />
+            ) : // <div className="edit ml-auto w-fit right-4 md:right-8 -top-24 md:top-2 absolute">
+            //   {/* <ButtonEdit
+            //     customStyle="rounded-md px-5 py-1 border-2 border-[#18C29C]"
+            //     textStyle="text-md font-bold pl-1 text-[#18C29C]"
+            //     onClick={() =>
+            //       handleToggleModal("modal_profile", ActionModal.open)
+            //     }
+            //   /> */}
+
+            // </div>
+            null}
 
             {!isOwner ? (
               <Button
@@ -151,7 +166,7 @@ export default function ProfileExpert() {
               </div>
               <hr className="border-text-50 mt-3 mb-6" />
             </div>
-            
+
             {/* TODO: preferred working */}
 
             {/* <div className="label mb-10">
@@ -252,23 +267,20 @@ export default function ProfileExpert() {
             >
               {!!expert.profileInfo?.description || !isOwner ? (
                 <>
-                <p className="text-sm text-text-90 text-justify mb-8">
-                  {expert.profileInfo?.description || ''}
-                </p>
-                <div className="my-5">
-                <h4 className="label font-bold text-sm text-text-100 mb-2">
-                  Precio por día
-                </h4>
-                <div className="categories mt-3 flex gap-2">
-                  <span
-                  className="rounded-sm bg-text-40 text-text-80 text-xs block px-4 py-1 w-fit "
-                >
-                  {expert.priceByDay || 125} €
-                </span>
-                </div>
-                </div>
+                  <p className="text-sm text-text-90 text-justify mb-8">
+                    {expert.profileInfo?.description || ""}
+                  </p>
+                  {expert.role === Role.EXPERT && <div className="my-5">
+                    <h4 className="label font-bold text-sm text-text-100 mb-2">
+                      Precio por día
+                    </h4>
+                    <div className="categories mt-3 flex gap-2">
+                      <span className="rounded-sm bg-text-40 text-text-80 text-xs block px-4 py-1 w-fit ">
+                        {expert.priceByDay || 125} €
+                      </span>
+                    </div>
+                  </div>}
                 </>
-
               ) : (
                 <EmptyBox
                   labelButton="Editar descripción"
@@ -277,7 +289,6 @@ export default function ProfileExpert() {
                   }
                 />
               )}
-              
             </Box>
 
             <Box
@@ -287,27 +298,28 @@ export default function ProfileExpert() {
               }}
               edit={false}
             >
-               {categoriesMapped.map((category) => (
-              <div key={category._id} className="my-5">
-                <h4 className="label font-bold text-sm text-text-100 mb-2">
-                  {category?.name.charAt(0).toUpperCase()}
-                  {category?.name.slice(1)}
-                </h4>
-                <div className="categories mt-3 flex gap-2">
-                {category?.subcategories.map((subcategory) => (
-                  <span
-                  key={subcategory._id}
-                  className="rounded-sm bg-text-40 text-text-80 text-xs block px-4 py-1 w-fit "
-                >
-                  {subcategory.name.charAt(0).toUpperCase()}{subcategory.name.slice(1)}
-                </span>
-                ))}
+              {categoriesMapped.map((category) => (
+                <div key={category._id} className="my-5">
+                  <h4 className="label font-bold text-sm text-text-100 mb-2">
+                    {category?.name.charAt(0).toUpperCase()}
+                    {category?.name.slice(1)}
+                  </h4>
+                  <div className="categories mt-3 flex gap-2">
+                    {category?.subcategories.map((subcategory) => (
+                      <span
+                        key={subcategory._id}
+                        className="rounded-sm bg-text-40 text-text-80 text-xs block px-4 py-1 w-fit "
+                      >
+                        {subcategory.name.charAt(0).toUpperCase()}
+                        {subcategory.name.slice(1)}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
             </Box>
-           
-{/* 
+
+            {/* 
             {!isOwner && !expert.degrees.length ? null : (
               <Degree isOwner={isOwner} data={expert.degrees} />
             )}
@@ -322,6 +334,114 @@ export default function ProfileExpert() {
               <Portfolio isOwner={isOwner} data={expert.portfolios} />
             )}
 
+            {!!isOwner && (
+              <div className="content-box">
+                <h4 className="text-text-100 text-sm font-bold">Editar datos de contacto</h4>
+                <hr className="separator w-full" />
+                <form action="">
+                  <Input
+                    data={{
+                      label: "Número de teléfono",
+                      name: "phone",
+                      value: values.phone,
+                      placeholder: "+34 123 456 789",
+                      onChange: (e: React.FormEvent<HTMLInputElement>) =>
+                        handleChangeInput(e, ValidationForm.number),
+                    }}
+                  />
+
+                  <Input
+                    data={{
+                      name: "fb_link",
+                      value: values.fb_link,
+                      placeholder: "Enlace...",
+                      onChange: handleChangeInput,
+                      inline: true,
+                      icon: "fb",
+                    }}
+                  />
+                  <Input
+                    data={{
+                      name: "ig_link",
+                      value: values.ig_link,
+                      placeholder: "Enlace...",
+                      onChange: handleChangeInput,
+                      inline: true,
+                      icon: "ig",
+                    }}
+                  />
+                  <Input
+                    data={{
+                      name: "twitter_link",
+                      value: values.twitter_link,
+                      placeholder: "Enlace...",
+                      onChange: handleChangeInput,
+                      inline: true,
+                      icon: "twitter",
+                    }}
+                  />
+                  <Input
+                    data={{
+                      name: "in_link",
+                      value: values.in_link,
+                      placeholder: "Enlace...",
+                      onChange: handleChangeInput,
+                      inline: true,
+                      icon: "linkedin",
+                    }}
+                  />
+
+                  <Button data={{ label: "Guardar", disabled: true }} />
+                </form>
+              </div>
+            )}
+
+            {!!isOwner && (
+              <div className="content-box">
+                <h4 className="text-text-100 text-sm font-bold">
+                  Cambiar contraseña
+                </h4>
+                <hr className="separator w-full" />
+                <form action="">
+                  <Input
+                    data={{
+                      label: "Contraseña",
+                      name: "change_password",
+                      value: values.change_password,
+                      placeholder: "******",
+                      onChange: handleChangeInput,
+                      type: "password",
+                    }}
+                  >
+                    <span className="text-xs text-alert-warnig">
+                      Ingresa tu contraseña actual para cambiarla
+                    </span>
+                  </Input>
+
+                  <Button data={{ label: "Continuar" }} />
+                </form>
+              </div>
+            )}
+
+            {!!isOwner && (
+              <div className="content-box w-full content-delete-account mx-auto flex-column justify-center">
+                <h5 className="text-md font-bold text-text-100 text-center mt-4">
+                  Eliminar cuenta
+                </h5>
+
+                <p className="text-sm mt-4 text-alert-danger text-center w-full">
+                  ¿Realmente deseas eliminar la cuenta?
+                </p>
+
+                <Button
+                  data={{
+                    label: "Eliminar",
+                    customStyles: "bg-alert-danger mx-auto w-48",
+                  }}
+                />
+              </div>
+            )}
+
             {/* <Location isOwner={isOwner} /> */}
           </div>
         </div>
@@ -331,6 +451,8 @@ export default function ProfileExpert() {
           showModal={statusModals.modal_profile}
           onClose={() => handleToggleModal("modal_profile", ActionModal.close)}
           data={{
+            firstName: expert.firstName,
+            lastName: expert.lastName,
             expert: expert.profileInfo,
             status: expert.status,
             experience: expert.experience,

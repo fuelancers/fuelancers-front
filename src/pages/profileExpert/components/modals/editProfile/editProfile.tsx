@@ -41,6 +41,8 @@ interface IProps {
     skills: TypeLists[];
     subcategories: SubcategoryLists[];
     priceByDay: number;
+    firstName: string;
+    lastName: string;
   };
   idExpert: string;
 }
@@ -87,6 +89,8 @@ export default function EditProfile({
 
     if (!!data.expert) {
       setValues({
+        firstName: data.firstName,
+        lastName: data.lastName,
         description: data.expert.description,
         title: data.expert.title,
       });
@@ -289,6 +293,8 @@ export default function EditProfile({
   // NOTA: ACTUALIZAR INFORMACIÓN PERSONAL
   const handleEdit = async () => {
     const dataToSend = {
+      ...(values.firstName ? { firstName: values.firstName } : {}),
+      ...(values.lastName ? { lastName: values.lastName } : {}),
       title: values.title,
       description: values.description,
       subcategories: subcategories.map(sc => sc._id),
@@ -314,6 +320,25 @@ export default function EditProfile({
       labelButton="Guardar"
       handleAction={() => void handleEdit()}
     >
+      <h4 className="label font-bold text-sm text-text-100 mb-4">Datos personales</h4>
+      <Input
+        data={{
+          label: "Nombre",
+          name: "nombre",
+          value: values.firstName,
+          placeholder: "Pedro",
+          onChange: handleChangeInput,
+        }}
+      />
+      <Input
+        data={{
+          label: "Apellido",
+          name: "Apellido",
+          value: values.lastName,
+          placeholder: "Perez",
+          onChange: handleChangeInput,
+        }}
+      />
       <h4 className="label font-bold text-sm text-text-100 mb-4">Perfil</h4>
       <Input
         data={{

@@ -54,6 +54,6 @@ export class IFormFilter {
 
         this.subcategories = [];
 
-        this.priceByDay = 125;
+        this.priceByDay = 2000;
     }
 }

@@ -21,6 +21,7 @@ export interface Expert {
   portfolios: { portfolio: IExpertPortfolio; createdAt: string }[];
   subcategories: SubcategoryLists[];
   priceByDay: number;
+  role?: string;
 }
 
 export interface PersonalInfo {

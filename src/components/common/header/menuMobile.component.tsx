@@ -2,6 +2,9 @@ import { MenuList } from '@/interface/generics/';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import Sidebar from '../../../layouts/sidebar/sidebar.component';
+import { IUser } from '@/interface/services';
+import { useSelector } from 'react-redux';
+import { AppStore } from '@/storage/store';
 
 interface IProps {
     links: MenuList[];
@@ -10,6 +13,7 @@ interface IProps {
 
 function MenuMobile({ links, isLogged }: IProps) {
     const [nav, setNav] = useState<boolean>(false);
+    const user: IUser = useSelector((storage: AppStore) => storage.user);
 
     const handleChangeNav = () => setNav(!nav);
 
@@ -32,7 +36,7 @@ function MenuMobile({ links, isLogged }: IProps) {
                                     key={item.id}
                                     onClick={handleCloseNav}
                                 >
-                                    <Link to={item.href}>
+                                    <Link to={item.href === "/expert" ? `/expert/${user._id}` : item.href}>
                                         {/* <span className=" inline-block mr-3 align-middle">
                                         {item.icon ? <img
                                                 src={`/assets/icons/${item.icon}-icon.svg`}

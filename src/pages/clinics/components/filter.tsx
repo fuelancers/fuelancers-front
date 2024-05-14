@@ -37,7 +37,7 @@ function Filter({
 }: IProps) {
   const { callEndpoint, error } = useFetch();
   const [experience, setExperience] = useState<number | null>(values?.experience || 0);
-  const [distance, setDistance] = useState<number | null>(Number(values?.range_distance || 0));
+  const [distance, setDistance] = useState<number | null>(Number(values?.range_distance || 1300));
   const [listSubcategories, setListSubcategories] = useState<CategoryLists[]>(
     []
   );
@@ -87,7 +87,7 @@ function Filter({
         <RangeInput
           data={{
             min: 100,
-            max: 700,
+            max: 1300,
             value: `${distance}`,
             symbol: "km",
             name: "range_distance",

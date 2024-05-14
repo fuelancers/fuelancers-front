@@ -59,10 +59,10 @@ export default function ContactTech({ showModal, onClose }: IProps) {
             title="Contactar con el técnico"
             labelButton="Enviar"
         >
-            <span className="text-sm text-text-90 mb-4 block">
-                Enviaremos un mensaje al técnico Ignaz Semmelweis
-            </span>
-            <Select
+            {/* <span className="text-sm text-text-90 mb-4 ml-[16px] font-bold block">
+                Enviaremos un mensaje al técnico con tu solicitud:
+            </span> */}
+            {/* <Select
                 data={{
                     label: "¿Qué servicio necesitas?",
                     name: "service",
@@ -71,17 +71,19 @@ export default function ContactTech({ showModal, onClose }: IProps) {
                     options: OptionsServices,
                     onSelect: handleValue,
                 }}
-            />
+            /> */}
 
+            <div className="ml-[-8px]">
             <TextArea
                 data={{
-                    label: "Enviar un mensaje",
+                    label: "Enviaremos un mensaje al técnico con tu solicitud:",
                     name: "message",
                     value: values.message,
                     placeholder: "Envía tu mensaje al técnico",
                     onChange: handleChangeTextArea,
                 }}
             />
+            </div>
         </Modal>
     );
 }

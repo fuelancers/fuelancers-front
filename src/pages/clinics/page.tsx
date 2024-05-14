@@ -46,7 +46,7 @@ export default function Experts() {
     handleChangeInput,
     handleChangeCheckbox,
     handleChangeRadio,
-  } = useFormValues<IFormFilter>(new IFormFilter("1500", "500"));
+  } = useFormValues<IFormFilter>(new IFormFilter("1500", "1300"));
 
   const [listExpert, setListExperts] = useState<Expert[]>([]);
   const { general: generalStorage } = useSelector(
@@ -378,6 +378,7 @@ export default function Experts() {
                       status: expert.status,
                       id: expert._id.toString(),
                       priceByDay: expert.priceByDay,
+                      role: expert.role,
                     }}
                   />
                 ))

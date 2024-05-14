@@ -37,8 +37,8 @@ function Filter({
 }: IProps) {
   const { callEndpoint, error } = useFetch();
   const [experience, setExperience] = useState<number | null>(values?.experience || 0);
-  const [priceByDay, setPriceByDay] = useState<number | null>(values?.priceByDay || 125);
-  const [distance, setDistance] = useState<number | null>(Number(values?.range_distance || 0));
+  const [priceByDay, setPriceByDay] = useState<number | null>(values?.priceByDay || 2000);
+  const [distance, setDistance] = useState<number | null>(Number(values?.range_distance || 1300));
   const [listSubcategories, setListSubcategories] = useState<CategoryLists[]>(
     []
   );
@@ -71,12 +71,12 @@ function Filter({
       <div>
       <div>
         <h5 className="font-bold text-sm md:text-base text-text-100 mb-4">
-          Precio por día (hasta {priceByDay === 460 ? '+' : ''}{priceByDay} €)
+          Precio por día (hasta {priceByDay === 2000 ? '+' : ''}{priceByDay} €)
         </h5>
         <ExperienceRangeInput
           data={{
             min: 125,
-            max: 460,
+            max: 2000,
             value: `${priceByDay}`,
             symbol: "€",
             name: "priceByDay",
@@ -90,7 +90,7 @@ function Filter({
       </div>
         <div className="flex items-start">
           <h5 className="font-bold text-sm md:text-base text-text-100 mb-4">
-            Distancia ({`${distance === 700 ? '+' : ''}`}{distance}km)
+            Distancia ({`${distance === 1300 ? '+' : ''}`}{distance}km)
           </h5>
           {showMap && (
             <button
@@ -111,7 +111,7 @@ function Filter({
         <RangeInput
           data={{
             min: 100,
-            max: 700,
+            max: 1300,
             value: `${distance}`,
             symbol: "km",
             name: "range_distance",
@@ -125,7 +125,7 @@ function Filter({
       </div>
       <div>
         <h5 className="font-bold text-sm md:text-base text-text-100 mb-4">
-          Experiencia (+{experience} años)
+          Experiencia (desde {experience} años)
         </h5>
         <ExperienceRangeInput
           data={{

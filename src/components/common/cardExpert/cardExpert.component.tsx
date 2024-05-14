@@ -5,6 +5,7 @@ import { LuMapPin } from "react-icons/lu";
 import "./cardExpert.scss";
 import { MultiValue } from "react-select";
 import { TypeListsSelect } from "@/interface/generics";
+import { Role } from "@/interface/enums";
 
 interface IProps {
   data: {
@@ -19,11 +20,12 @@ interface IProps {
     location?: string;
     subcategories: any[];
     priceByDay: number | undefined;
+    role?: string;
   };
 }
 
 export default function CardExpert({ data }: IProps) {
-  const { name, title, picture, description, price, location, skills, status, id, subcategories, priceByDay } =
+  const { name, title, picture, description, price, location, skills, status, id, subcategories, priceByDay, role } =
     data;
   const formatter = new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -55,13 +57,13 @@ export default function CardExpert({ data }: IProps) {
               />
             </button>
             {/* status */}
-            {status ? (
+            {/* {status ? (
               <div className="status rounded-xl bg-text-40 shadow-strong w-fit absolute left-4 top-4">
                 <span className="block text-center text-primary text-xs px-5 py-1">
                   {status.status.name}
                 </span>
               </div>
-            ) : null}
+            ) : null} */}
 
             <div className="z-10 absolute bottom-6 left-4 ">
               <h4 className="font-bold  text-white text-2xl mb-0 capitalize">{name}</h4>
@@ -79,11 +81,11 @@ export default function CardExpert({ data }: IProps) {
           </div>
         </div>
         <div className="info  p-4 pb-6 relative">
-          <div className="price-day rounded-xl bg-white shadow-strong w-fit absolute left-4 -top-4">
+          {role === Role.EXPERT && <div className="price-day rounded-xl bg-white shadow-strong w-fit absolute left-4 -top-4">
             <span className="block text-center text-text-100 text-xs px-3 py-1 font-semibold">
               <span className="font-bold text-xs">{priceByDay || 125} €</span>/por día
             </span>
-          </div>
+          </div>}
           <div className="data relative">
             <h4 className="text-xl font-bold text-text-100">{title}</h4>
 

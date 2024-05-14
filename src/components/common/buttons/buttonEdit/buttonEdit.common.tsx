@@ -5,6 +5,7 @@ interface IProps {
   inline?: boolean;
   onClick: () => void;
   customStyle?: string;
+  textStyle?: string;
   label?: string;
   icon?: string;
 }
@@ -16,10 +17,11 @@ export default function ButtonEdit({
   customStyle,
   label = "Edit",
   icon,
+  textStyle,
 }: IProps) {
   return (
     <button
-      className={` block cursor-default  w-fit ${inline ? "absolute top-0 right-0  " : "relative"
+      className={`block cursor-default w-fit rounded ${inline ? "absolute top-0 right-0  " : "relative"
         } ${customStyle ? customStyle : ""} lg:cursor-pointer`}
       onClick={onClick}
     >
@@ -31,7 +33,7 @@ export default function ButtonEdit({
         className="inline-block"
       />
       {showText ? (
-        <span className="text-sm text-text-90 inline-block ml-2">{label}</span>
+        <span className={`text-text-90 inline-block ml-2 ${textStyle || 'text-sm'}`}>{label}</span>
       ) : null}
     </button>
   );
