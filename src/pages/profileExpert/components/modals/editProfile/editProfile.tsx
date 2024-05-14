@@ -324,7 +324,7 @@ export default function EditProfile({
       <Input
         data={{
           label: "Nombre",
-          name: "nombre",
+          name: "firstName",
           value: values.firstName,
           placeholder: "Pedro",
           onChange: handleChangeInput,
@@ -333,7 +333,7 @@ export default function EditProfile({
       <Input
         data={{
           label: "Apellido",
-          name: "Apellido",
+          name: "lastName",
           value: values.lastName,
           placeholder: "Perez",
           onChange: handleChangeInput,
