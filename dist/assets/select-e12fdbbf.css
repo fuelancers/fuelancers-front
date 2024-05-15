@@ -1,0 +1,1 @@
+.custom-select{-webkit-appearance:none;-moz-appearance:none;appearance:none;display:grid}.custom-select::-ms-expand{display:none}.custom-select:after{content:"";width:.8em;height:.5em;background-color:#5b5b5b;-webkit-clip-path:polygon(100% 0%,0 0%,50% 100%);clip-path:polygon(100% 0%,0 0%,50% 100%)}

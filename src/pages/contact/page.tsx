@@ -4,8 +4,14 @@ import TextArea from "@/components/form/textArea/textArea";
 import { useFormValues } from "@/hooks/form/useFormValues";
 import { TiLocation } from "react-icons/ti";
 import { IoMdCall } from "react-icons/io";
+import Select from "@/components/form/select/select.component";
 
 const contactForm = {
+  role: {
+    _id: "1",
+    label: "Clínica",
+    value: "CLINIC",
+  },
   firstName: "",
   lastName: "",
   email: "",
@@ -14,8 +20,14 @@ const contactForm = {
 };
 
 const ContactPage = () => {
-  const { values, setValues, errors, handleChangeInput, handleChangeTextArea } =
-    useFormValues<typeof contactForm>(contactForm);
+  const {
+    values,
+    setValues,
+    errors,
+    handleChangeInput,
+    handleChangeTextArea,
+    handleChangeSelect,
+  } = useFormValues<typeof contactForm>(contactForm);
 
   return (
     <main className="bg-white-bg min-h-screen pb-8 lg:pt-6">
@@ -31,13 +43,14 @@ const ContactPage = () => {
       <section className="flex flex-wrap content-sections gap-4 mt-12 px-4 md:px-8 lg:gap-8">
         <div className="content-box px-4 py-14 flex-1 lg:px-8">
           <form action="" className="max-w-full">
+           
             <div className="flex px-2 sm:px-3 md:px-4">
               <Input
                 data={{
                   label: "Nombre",
                   name: "name",
                   value: values.firstName,
-                  placeholder: "Hannah",
+                  placeholder: "Jones",
                   onChange: handleChangeInput,
                 }}
               />
@@ -46,7 +59,7 @@ const ContactPage = () => {
                   label: "Apellido",
                   name: "name",
                   value: values.lastName,
-                  placeholder: "Jones Miller",
+                  placeholder: "Miller",
                   onChange: handleChangeInput,
                 }}
               />
@@ -57,7 +70,7 @@ const ContactPage = () => {
                   label: "Email",
                   name: "email",
                   value: values.email,
-                  placeholder: "Médico",
+                  placeholder: "jonesmiller@email.com",
                   onChange: handleChangeInput,
                 }}
               />
@@ -71,7 +84,29 @@ const ContactPage = () => {
                 }}
               />
             </div>
-
+            <div className="w-[50%] flex pl-2 sm:pl-3 md:pl-4">
+              <Select
+                data={{
+                  label: "Rol",
+                  name: "role",
+                  placeholder: "Idioma",
+                  value: values.role,
+                  options: [
+                    {
+                      _id: "1",
+                      label: "Clínica",
+                      value: "CLINIC",
+                    },
+                    {
+                      _id: "2",
+                      label: "Experto",
+                      value: "EXPERT",
+                    },
+                  ],
+                  onSelect: (option) => handleChangeSelect(option, "role"),
+                }}
+              />
+            </div>
             <TextArea
               data={{
                 label: "Mensaje",
