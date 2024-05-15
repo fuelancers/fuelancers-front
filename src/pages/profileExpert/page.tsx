@@ -38,6 +38,8 @@ import { SubcategoryLists } from "@/interface/generics/ISubcategories.interface"
 import Input from "@/components/form/input/input.component";
 import { useFormValues } from "@/hooks/form/useFormValues";
 import { DataProfileUser } from "@/interface/forms";
+import MapContainer from "../experts/components/map";
+import { Expert, User } from "@/interface/services";
 
 export interface CategoriesMapped {
   _id: string;
@@ -53,6 +55,7 @@ export default function ProfileExpert() {
 
   const dispatch = useDispatch();
   const { handleToggleModal, handleToggleModalWithLabel } = useModal();
+  const [expertProfile, setExpertProfile] = useState<Expert>();
 
   const { user, general, statusModals, expert } = useSelector(
     (storage: AppStore) => storage
@@ -64,6 +67,7 @@ export default function ProfileExpert() {
 
     if (responsaService?.expert) {
       dispatch(updateExpert(responsaService.expert));
+      setExpertProfile(responsaService.expert as any);
 
       setIsOwner(id === user._id);
     }
@@ -141,7 +145,7 @@ export default function ProfileExpert() {
         <div className="flex flex-wrap lg:flex-nowrap lg:gap-8 content-sections lg:px-8 xl:px-0">
           <div className="content-box lg:min-w-[288px] lg:w-72 hidden lg:block h-fit sticky top-10">
             {/* TODO: location */}
-            <div className="label mb-10">
+            <div className="label mb-8">
               <h5 className="font-bold text-text-100 md:text-lg mb-4">
                 Ubicación
               </h5>
@@ -164,8 +168,14 @@ export default function ProfileExpert() {
                   {expert?.location?.name || ""}
                 </span>
               </div>
-              <hr className="border-text-50 mt-3 mb-6" />
+              
+              {!general.loading_page && expertProfile && (
+              <div className="w-[100%] pt-2 px-4">
+                <MapContainer experts={[expertProfile]} location={expertProfile.location} />
+              </div>
+            )}
             </div>
+            <hr className="border-text-50 mt-0 mb-6" />
 
             {/* TODO: preferred working */}
 
